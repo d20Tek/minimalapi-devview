@@ -5,6 +5,10 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D20Tek.MinimalApi.DevView", "src\D20Tek.MinimalApi.DevView\D20Tek.MinimalApi.DevView.csproj", "{2256AB14-9876-47E3-AFF5-20CB087DC707}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebApi", "samples\Sample.WebApi\Sample.WebApi.csproj", "{C6AB300E-8EC9-2A13-8F98-4810C85DCA3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{2256AB14-9876-47E3-AFF5-20CB087DC707}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2256AB14-9876-47E3-AFF5-20CB087DC707}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2256AB14-9876-47E3-AFF5-20CB087DC707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6AB300E-8EC9-2A13-8F98-4810C85DCA3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6AB300E-8EC9-2A13-8F98-4810C85DCA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6AB300E-8EC9-2A13-8F98-4810C85DCA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6AB300E-8EC9-2A13-8F98-4810C85DCA3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C6AB300E-8EC9-2A13-8F98-4810C85DCA3E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C28D1F4D-5AA6-4CF8-97DE-DF4F1E1C1A23}
