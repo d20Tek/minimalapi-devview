@@ -18,6 +18,7 @@ public static class DependencyInjection
             return app;
 
         app.UseMiddleware<RequestLoggingMiddleware>();
+        app.UseRouting();
 
         return app.UseEndpoints(endpoints =>
         {

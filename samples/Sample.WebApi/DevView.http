@@ -1,0 +1,10 @@
+@Sample.WebApi_HostAddress = http://localhost:5294
+
+GET {{Sample.WebApi_HostAddress}}/dev/info
+Accept: application/json
+
+###
+GET {{Sample.WebApi_HostAddress}}/dev/routes
+Accept: application/json
+
+###

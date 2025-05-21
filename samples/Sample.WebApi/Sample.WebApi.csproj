@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\D20Tek.MinimalApi.DevView\D20Tek.MinimalApi.DevView.csproj" />
+  </ItemGroup>
+
 </Project>

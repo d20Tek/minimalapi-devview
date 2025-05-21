@@ -3,6 +3,7 @@
 //---------------------------------------------------------------------------------------------------------------------
 using Sample.WebApi.Endpoints;
 using D20Tek.LowDb;
+using D20Tek.MinimalApi.DevView;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseDevView();
 }
 
 app.UseHttpsRedirection();
