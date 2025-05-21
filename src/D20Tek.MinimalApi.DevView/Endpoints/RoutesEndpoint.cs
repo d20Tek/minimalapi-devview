@@ -26,15 +26,19 @@ public static class RoutesEndpoint
         DevViewOptions options) =>
         endpointSource.Endpoints
                       .OfType<RouteEndpoint>()
-                      .Select(ep => InspectEndpoint(ep, options));
+                      .Select(ep => InspectEndpoint(ep, options))
+                      .Where(x => x.Count > 0);
 
     private static Dictionary<string, object?> InspectEndpoint(RouteEndpoint endpoint, DevViewOptions options)
     {
+        var routePattern = endpoint.RoutePattern.RawText ?? "N/A";
+        if (routePattern.StartsWith(options.BasePath)) return [];
+
         var routeInfo = new Dictionary<string, object?>
         {
             ["Method"] = endpoint.Metadata.OfType<HttpMethodMetadata>().FirstOrDefault()?
                                           .HttpMethods.FirstOrDefault() ?? "N/A",
-            ["Pattern"] = endpoint.RoutePattern.RawText ?? "N/A"
+            ["Pattern"] = routePattern
         };
 
         if (options.IncludeRouteMetadata)
