@@ -15,6 +15,7 @@ builder.Services.AddLowDbAsync<TasksDocument>(b =>
      .WithFolder("data")
      .WithLifetime(ServiceLifetime.Scoped));
 builder.Services.AddScoped<ITasksRepository, TasksRepository>();
+builder.Services.AddDevView(builder.Configuration);
 
 var app = builder.Build();
 

@@ -10,7 +10,7 @@ public class DevViewOptions
     
     public bool IncludeRouteMetadata { get; set; } = true;
 
-    public bool IncludeRouteDebugDetails { get; set; } = true;
+    public bool IncludeRouteDebugDetails { get; set; } = false;
     
     public bool EnableLogging { get; set; } = true;
     
