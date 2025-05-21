@@ -11,11 +11,7 @@ public static class TaskEndpointsV2
         var group = routes.MapGroup("/api/v2/tasks")
                           .WithTags("Tasks V2");
 
-        group.MapGet("/", async (ITasksRepository repo) =>
-        {
-            var result = await repo.GetAllAsync();
-            return result.ToApiResult();
-        })
+        group.MapGet("/", GetAllTasks)
         .WithName("GetAllTasks.V2")
         .WithOpenApi();
 
@@ -62,6 +58,12 @@ public static class TaskEndpointsV2
         })
         .WithName("DeleteTask.V2")
         .WithOpenApi();
+    }
+
+    private async static Task<IResult> GetAllTasks(ITasksRepository repo)
+    {
+        var result = await repo.GetAllAsync();
+        return result.ToApiResult();
     }
 
     private static async Task<TaskEntity> CreateTaskEntity(CreateTaskRequest request, LowDbAsync<TasksDocument> db)
