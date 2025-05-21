@@ -1,6 +1,7 @@
 ﻿using D20Tek.Functional.AspNetCore.MinimalApi;
 using D20Tek.Functional.Async;
 using D20Tek.LowDb;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sample.WebApi.Endpoints;
 
@@ -12,14 +13,17 @@ public static class TaskEndpointsV2
                           .WithTags("Tasks V2");
 
         group.MapGet("/", GetAllTasks)
-        .WithName("GetAllTasks.V2")
-        .WithOpenApi();
+             .Produces<TaskEntity[]>(StatusCodes.Status200OK)
+             .WithName("GetAllTasks.V2")
+             .WithOpenApi();
 
         group.MapGet("/{id}", async (int id, ITasksRepository repo) =>
         {
             var result = await repo.GetByIdAsync(t => t.Id, id);
             return result.ToApiResult();
         })
+        .Produces<TaskEntity[]>(StatusCodes.Status200OK)
+        .ProducesProblem(StatusCodes.Status404NotFound)
         .WithName("GetTaskById.V2")
         .WithOpenApi();
 
@@ -33,6 +37,8 @@ public static class TaskEndpointsV2
                 response => TypedResults.Created($"/api/v1/tasks/{response?.Id}", response),
                 errors => TypedResults.Extensions.Problem(errors));
         })
+        .Produces<TaskEntity>(StatusCodes.Status201Created)
+        .ProducesValidationProblem(StatusCodes.Status400BadRequest)
         .WithName("CreateTask.V2")
         .WithOpenApi();
 
@@ -45,6 +51,9 @@ public static class TaskEndpointsV2
 
             return result.ToApiResult();
         })
+        .Produces<TaskEntity>(StatusCodes.Status200OK)
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesValidationProblem(StatusCodes.Status400BadRequest)
         .WithName("UpdateTask.V2")
         .WithOpenApi();
 
@@ -56,10 +65,14 @@ public static class TaskEndpointsV2
 
             return result.ToApiResult();
         })
+        .Produces<TaskEntity>(StatusCodes.Status200OK)
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .ProducesValidationProblem(StatusCodes.Status400BadRequest)
         .WithName("DeleteTask.V2")
         .WithOpenApi();
     }
 
+    [Produces<TaskEntity[]>()]
     private async static Task<IResult> GetAllTasks(ITasksRepository repo)
     {
         var result = await repo.GetAllAsync();

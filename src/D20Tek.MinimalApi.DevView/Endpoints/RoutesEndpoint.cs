@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints;
@@ -26,40 +25,6 @@ public static class RoutesEndpoint
         DevViewOptions options) =>
         endpointSource.Endpoints
                       .OfType<RouteEndpoint>()
-                      .Select(ep => InspectEndpoint(ep, options))
+                      .Select(ep => ep.InspectEndpoint(options))
                       .Where(x => x.Count > 0);
-
-    private static Dictionary<string, object?> InspectEndpoint(RouteEndpoint endpoint, DevViewOptions options)
-    {
-        var routePattern = endpoint.RoutePattern.RawText ?? "N/A";
-        if (routePattern.StartsWith(options.BasePath)) return [];
-
-        var routeInfo = new Dictionary<string, object?>
-        {
-            ["Method"] = endpoint.Metadata.OfType<HttpMethodMetadata>().FirstOrDefault()?
-                                          .HttpMethods.FirstOrDefault() ?? "N/A",
-            ["Pattern"] = routePattern
-        };
-
-        if (options.IncludeRouteMetadata)
-        {
-            routeInfo["Handler"] = endpoint.RequestDelegate?.Method?.Name;
-
-            if (GetProducesResponses(endpoint) is { Length: > 0 } produces)
-            {
-                routeInfo["Produces"] = produces;
-            }
-        }
-
-        return routeInfo;
-    }
-
-    private static string[] GetProducesResponses(RouteEndpoint endpoint) =>
-        endpoint.Metadata.OfType<ProducesAttribute>()
-                         .SelectMany(attr => attr.ContentTypes)
-                         .Concat(endpoint.Metadata
-                                         .OfType<ProducesResponseTypeMetadata>()
-                                         .SelectMany(meta => meta.ContentTypes))
-                         .Distinct()
-                         .ToArray();
 }

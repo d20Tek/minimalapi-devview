@@ -9,6 +9,8 @@ public class DevViewOptions
     public bool IncludeRequestBodies { get; set; } = false;
     
     public bool IncludeRouteMetadata { get; set; } = true;
+
+    public bool IncludeRouteDebugDetails { get; set; } = true;
     
     public bool EnableLogging { get; set; } = true;
     
