@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
+using System.Diagnostics.CodeAnalysis;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
@@ -16,5 +17,6 @@ internal class FakeEndpointDataSource : EndpointDataSource
 
     public override IReadOnlyList<Endpoint> Endpoints => _endpoints;
 
+    [ExcludeFromCodeCoverage]
     public override IChangeToken GetChangeToken() => NullChangeToken.Singleton;
 }
