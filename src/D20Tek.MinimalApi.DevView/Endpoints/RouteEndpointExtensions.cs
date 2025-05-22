@@ -20,6 +20,7 @@ internal static class RouteEndpointExtensions
 
         if (options.IncludeRouteMetadata)
         {
+            routeInfo["Tags"] = endpoint.GetTags();
             routeInfo["Handler"] = endpoint.RequestDelegate?.Method?.Name;
             routeInfo["Name"] = endpoint.GetEndpointName();
 
@@ -27,7 +28,6 @@ internal static class RouteEndpointExtensions
             {
                 routeInfo["Produces"] = produces;
             }
-
         }
 
         if (options.IncludeRouteDebugDetails)
@@ -44,6 +44,11 @@ internal static class RouteEndpointExtensions
         endpoint.Metadata.OfType<HttpMethodMetadata>()
                          .SelectMany(m => m.HttpMethods)
                          .DefaultIfEmpty(_noData)
+                         .ToArray();
+
+    private static string[] GetTags(this RouteEndpoint endpoint) =>
+        endpoint.Metadata.OfType<TagsAttribute>()
+                         .SelectMany(m => m.Tags)
                          .ToArray();
 
     private static string? GetEndpointName(this RouteEndpoint endpoint) =>
