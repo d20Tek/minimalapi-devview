@@ -1,7 +1,7 @@
 ﻿using D20Tek.LowDb;
 using D20Tek.LowDb.Repositories;
 
-namespace Sample.WebApi.Endpoints;
+namespace Sample.WebApi.Endpoints.Tasks;
 
 internal interface ITasksRepository : IRepositoryAsync<TaskEntity>;
 

@@ -1,4 +1,4 @@
-﻿namespace Sample.WebApi.Endpoints;
+﻿namespace Sample.WebApi.Endpoints.Tasks;
 
 internal record CreateTaskRequest(string Name);
 

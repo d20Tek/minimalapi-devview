@@ -1,10 +1,8 @@
 ﻿using D20Tek.Functional.AspNetCore.MinimalApi;
 using D20Tek.Functional.Async;
 using D20Tek.LowDb;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 
-namespace Sample.WebApi.Endpoints;
+namespace Sample.WebApi.Endpoints.Tasks;
 
 public static class TaskEndpointsV2
 {

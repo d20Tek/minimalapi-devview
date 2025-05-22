@@ -1,10 +1,7 @@
-﻿//---------------------------------------------------------------------------------------------------------------------
-// Copyright (c) d20Tek.  All rights reserved.
-//---------------------------------------------------------------------------------------------------------------------
-using D20Tek.Functional.AspNetCore.MinimalApi;
+﻿using D20Tek.Functional.AspNetCore.MinimalApi;
 using D20Tek.LowDb;
 
-namespace Sample.WebApi.Endpoints;
+namespace Sample.WebApi.Endpoints.Tasks;
 
 public static class TaskEndpoints
 {
