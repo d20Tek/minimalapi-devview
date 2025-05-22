@@ -2,6 +2,7 @@
 using D20Tek.Functional.Async;
 using D20Tek.LowDb;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Sample.WebApi.Endpoints;
 
@@ -72,7 +73,6 @@ public static class TaskEndpointsV2
         .WithOpenApi();
     }
 
-    [Produces<TaskEntity[]>()]
     private async static Task<IResult> GetAllTasks(ITasksRepository repo)
     {
         var result = await repo.GetAllAsync();

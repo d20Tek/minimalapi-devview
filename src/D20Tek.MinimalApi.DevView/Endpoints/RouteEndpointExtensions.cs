@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints;
@@ -53,11 +52,17 @@ internal static class RouteEndpointExtensions
                          .EndpointName;
 
     private static string[] GetProducesResponses(RouteEndpoint endpoint) =>
-        endpoint.Metadata.OfType<ProducesAttribute>()
-                         .Select(attr => attr.ToString() ?? _noData)
-                         .Concat(endpoint.Metadata
-                                         .OfType<ProducesResponseTypeMetadata>()
-                                         .Select(meta => meta.ToString()))
-                         .Distinct()
+        endpoint.Metadata.OfType<ProducesResponseTypeMetadata>()
+                         .GroupBy(meta => new
+                         {
+                            meta.StatusCode,
+                            Key = string.Join(",", meta.ContentTypes.OrderBy(c => c))
+                         })
+                         // Prefer the more specific ResponseType (i.e., not IResult)
+                         .Select(g => g.FirstOrDefault(x => x.Type != typeof(IResult)) ?? g.First())
+                         .Select(meta => FormatProducesMetadata(meta))
                          .ToArray();
+
+    private static string FormatProducesMetadata(ProducesResponseTypeMetadata meta) =>
+        $"StatusCode: {meta.StatusCode}, ContentTypes: {string.Join(";", meta.ContentTypes)}, Type: {meta.Type}";
 }
