@@ -28,6 +28,9 @@ In your Program.cs, enable MinimalApi.DevView only in development:
 using D20Tek.MinimalApi.DevView;
 ...
 
+builder.Services.AddDevView(builder.Configuration);
+...
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDevView();
