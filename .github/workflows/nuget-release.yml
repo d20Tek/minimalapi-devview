@@ -40,7 +40,7 @@ jobs:
       run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
 
     - name: Publish D20Tek.MinimalApi.DevView (local)
-      run: dotnet nuget push D20Tek.D20Tek.MinimalApi.DevView.${VERSION}.nupkg --source https://nuget.pkg.github.com/d20Tek/index.json --api-key ${GITHUB_TOKEN}
+      run: dotnet nuget push D20Tek.MinimalApi.DevView.${VERSION}.nupkg --source https://nuget.pkg.github.com/d20Tek/index.json --api-key ${GITHUB_TOKEN}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
