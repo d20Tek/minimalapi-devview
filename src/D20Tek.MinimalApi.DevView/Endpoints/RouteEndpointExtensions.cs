@@ -9,7 +9,7 @@ internal static class RouteEndpointExtensions
 
     public static Dictionary<string, object?> InspectEndpoint(this RouteEndpoint endpoint, DevViewOptions options)
     {
-        var routePattern = endpoint.GetRoutePattern() ?? _noData;
+        var routePattern = endpoint.GetRoutePattern();
         if (routePattern.StartsWith(options.BasePath)) return [];
 
         var routeInfo = new Dictionary<string, object?>
@@ -21,10 +21,11 @@ internal static class RouteEndpointExtensions
         if (options.IncludeRouteMetadata)
         {
             routeInfo["Tags"] = endpoint.GetTags();
-            routeInfo["Handler"] = endpoint.RequestDelegate?.Method?.Name;
+            routeInfo["Handler"] = endpoint.RequestDelegate!.Method.Name;
             routeInfo["Name"] = endpoint.GetEndpointName();
 
-            if (GetProducesResponses(endpoint) is { Length: > 0 } produces)
+            var produces = GetProducesResponses(endpoint);
+            if (produces.Length > 0)
             {
                 routeInfo["Produces"] = produces;
             }
@@ -32,13 +33,18 @@ internal static class RouteEndpointExtensions
 
         if (options.IncludeRouteDebugDetails)
         {
-            routeInfo["MetadataTypes"] = endpoint.Metadata.Select(t => $"Type: {t.GetType().Name}, Value:{t}");
+            routeInfo["MetadataTypes"] = endpoint.Metadata.Select(t => $"Type: {t.GetType().Name}, Value:{t}")
+                                                          .ToArray();
         }
 
         return routeInfo;
     }
 
-    private static string? GetRoutePattern(this RouteEndpoint endpoint) => endpoint.RoutePattern.RawText;
+    private static string GetRoutePattern(this RouteEndpoint endpoint)
+    {
+        var pattern = endpoint.RoutePattern.RawText;
+        return string.IsNullOrEmpty(pattern) ? _noData : pattern;
+    }
 
     private static string[] GetHttpMethods(this RouteEndpoint endpoint) =>
         endpoint.Metadata.OfType<HttpMethodMetadata>()
