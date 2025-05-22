@@ -17,4 +17,10 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>D20Tek.MinimalApi.DevView.UnitTests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  
 </Project>

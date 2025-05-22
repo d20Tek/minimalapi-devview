@@ -9,18 +9,20 @@ namespace D20Tek.MinimalApi.DevView;
 
 public static class DependencyInjection
 {
+    private const string _devViewSection = "DevView";
+
     public static IServiceCollection AddDevView(this IServiceCollection services, IConfiguration config) =>
-        services.Configure<DevViewOptions>(config.GetSection("DevView"));
+        services.Configure<DevViewOptions>(config.GetSection(_devViewSection));
 
     public static IApplicationBuilder UseDevView(
         this IApplicationBuilder app,
         Action<DevViewOptions>? configureOptions = null)
     {
-        var options = app.ApplicationServices.GetRequiredService<IOptions<DevViewOptions>>();
-        configureOptions?.Invoke(options.Value);
-
         if (app.ApplicationServices.GetRequiredService<IHostEnvironment>().IsProduction())
             return app;
+
+        var options = app.ApplicationServices.GetRequiredService<IOptions<DevViewOptions>>();
+        configureOptions?.Invoke(options.Value);
 
         app.UseMiddleware<RequestLoggingMiddleware>();
         app.UseRouting();
