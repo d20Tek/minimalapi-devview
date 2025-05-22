@@ -40,7 +40,7 @@ public class DependencyInjectionTests
 
         var endpointSource = result.ApplicationServices.GetRequiredService<EndpointDataSource>();
         Assert.AreEqual(2, endpointSource.Endpoints.Count);
-        Assert.IsTrue(endpointSource.Endpoints.Any(x => x.DisplayName == "HTTP: GET /dev/info"));
+        Assert.IsTrue(endpointSource.Endpoints.Any(x => x.DisplayName == "HTTP: GET /dev/info => GetDevInfo"));
         Assert.IsTrue(endpointSource.Endpoints.Any(x => x.DisplayName == "HTTP: GET /dev/routes => GetRoutes"));
     }
 
@@ -76,7 +76,7 @@ public class DependencyInjectionTests
 
         var endpointSource = result.ApplicationServices.GetRequiredService<EndpointDataSource>();
         Assert.AreEqual(2, endpointSource.Endpoints.Count);
-        Assert.IsTrue(endpointSource.Endpoints.Any(x => x.DisplayName == "HTTP: GET /test-dev/info"));
+        Assert.IsTrue(endpointSource.Endpoints.Any(x => x.DisplayName == "HTTP: GET /test-dev/info => GetDevInfo"));
         Assert.IsTrue(endpointSource.Endpoints.Any(x => x.DisplayName == "HTTP: GET /test-dev/routes => GetRoutes"));
     }
 }
