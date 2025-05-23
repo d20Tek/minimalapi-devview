@@ -91,6 +91,9 @@ By default, DevView registers a request/response logger to help with debugging y
 ```
 
 ## Samples
+For more detailed examples on how to use D20Tek.MinimalApi.DevView, please review the following samples:
+
+* [Sample.WebApi](samples/Sample.WebApi) - A simple Minimal WepApi project that implements the necessary calls to MinimalApi.DevView. This service has endpoints for weather forecasts and task CRUD operations.
 
 ## Feedback
 If you use this library and have any feedback, bugs, or suggestions, please file them in the Issues section of this repository. I'm still in the process of building the library and samples, so any suggestions that would make it more useable are welcome.
