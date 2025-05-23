@@ -1,4 +1,5 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints;
+using D20Tek.MinimalApi.DevView.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,8 @@ public static class DependencyInjection
     private const string _devViewSection = "DevView";
 
     public static IServiceCollection AddDevView(this IServiceCollection services, IConfiguration config) =>
-        services.Configure<DevViewOptions>(config.GetSection(_devViewSection));
+        services.Configure<DevViewOptions>(config.GetSection(_devViewSection))
+                .AddSingleton<IRegisteredServicesProvider>(new RegisteredServicesProvider(services));
 
     public static IApplicationBuilder UseDevView(
         this IApplicationBuilder app,
@@ -31,6 +33,7 @@ public static class DependencyInjection
         {
             endpoints.MapInfoEndpoint(options.Value);
             endpoints.MapRoutesExplorer(options.Value);
+            endpoints.MapDependenciesExplorer(options.Value);
         });
     }
 }

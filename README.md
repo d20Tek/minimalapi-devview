@@ -90,5 +90,7 @@ By default, DevView registers a request/response logger to help with debugging y
 <-- 200 OK (112ms)
 ```
 
+## Samples
+
 ## Feedback
 If you use this library and have any feedback, bugs, or suggestions, please file them in the Issues section of this repository. I'm still in the process of building the library and samples, so any suggestions that would make it more useable are welcome.
