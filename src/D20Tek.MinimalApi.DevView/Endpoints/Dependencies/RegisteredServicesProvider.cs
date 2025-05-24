@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace D20Tek.MinimalApi.DevView.Services;
+namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
 internal class RegisteredServicesProvider : IRegisteredServicesProvider
 {

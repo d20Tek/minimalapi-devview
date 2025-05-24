@@ -1,5 +1,6 @@
-﻿using D20Tek.MinimalApi.DevView.Endpoints;
-using D20Tek.MinimalApi.DevView.Services;
+﻿using D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
+using D20Tek.MinimalApi.DevView.Endpoints.Info;
+using D20Tek.MinimalApi.DevView.Endpoints.Routes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddDevView(this IServiceCollection services, IConfiguration config) =>
         services.Configure<DevViewOptions>(config.GetSection(_devViewSection))
-                .AddSingleton<IRegisteredServicesProvider>(new RegisteredServicesProvider(services));
+                .AddSingleton<IRegisteredServicesProvider>(sp => new RegisteredServicesProvider(services));
 
     public static IApplicationBuilder UseDevView(
         this IApplicationBuilder app,

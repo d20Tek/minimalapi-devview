@@ -1,12 +1,11 @@
-﻿using D20Tek.MinimalApi.DevView.Services;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace D20Tek.MinimalApi.DevView.Endpoints;
+namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
-public static class DependenciesEndpoint
+public static partial class DependenciesEndpoint
 {
     public static IEndpointRouteBuilder MapDependenciesExplorer(this IEndpointRouteBuilder endpoints, DevViewOptions options)
     {
@@ -18,7 +17,8 @@ public static class DependenciesEndpoint
 
     internal static IResult GetDependencyInfo(HttpContext context)
     {
-        var services = context.RequestServices.GetRequiredService<IRegisteredServicesProvider>();
+        var services = context.RequestServices.GetService<IRegisteredServicesProvider>();
+        ArgumentNullException.ThrowIfNull(services, nameof(IRegisteredServicesProvider));
 
         var deps = services.Services.Where(sd => sd.ServiceType is not null)
                                     .Select(sd => CreateDependencyInfo(sd))
@@ -32,12 +32,12 @@ public static class DependenciesEndpoint
         var implementationType = GetImplementationType(descriptor);
         return new(
             descriptor.ServiceType.Name!,
-            implementationType?.FullName ?? "none",
+            implementationType.FullName,
             descriptor.Lifetime.ToString(),
-            implementationType?.Assembly.GetName().Name);
+            implementationType.Assembly.GetName().Name);
     }
 
-    private static Type? GetImplementationType(ServiceDescriptor descriptor) =>
+    internal static Type GetImplementationType(ServiceDescriptor descriptor) =>
         descriptor switch
         {
             { ImplementationType: not null } => descriptor.ImplementationType,
@@ -46,12 +46,6 @@ public static class DependenciesEndpoint
             { KeyedImplementationType: not null } => descriptor.KeyedImplementationType,
             { KeyedImplementationInstance: not null } => descriptor.KeyedImplementationInstance.GetType(),
             { KeyedImplementationFactory: not null } => descriptor.KeyedImplementationFactory.GetType(),
-            _ => null
+            _ => throw new ArgumentNullException(nameof(descriptor)),
         };
-
-    internal record DependencyInfo(
-        string ServiceType,
-        string? Implementation,
-        string Lifetime,
-        string? AssemblyName);
 }

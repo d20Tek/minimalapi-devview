@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace D20Tek.MinimalApi.DevView.Endpoints;
+namespace D20Tek.MinimalApi.DevView.Endpoints.Routes;
 
 internal static class RouteEndpointExtensions
 {

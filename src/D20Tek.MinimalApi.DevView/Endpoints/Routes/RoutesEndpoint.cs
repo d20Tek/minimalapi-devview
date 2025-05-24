@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 
-namespace D20Tek.MinimalApi.DevView.Endpoints;
+namespace D20Tek.MinimalApi.DevView.Endpoints.Routes;
 
 public static class RoutesEndpoint
 {
