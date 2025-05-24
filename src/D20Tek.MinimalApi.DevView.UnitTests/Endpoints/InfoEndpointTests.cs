@@ -18,7 +18,7 @@ public class InfoEndpointTests
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<InfoEndpoint.InfoResponse>;
+        var jsonResult = result as JsonHttpResult<InfoResponse>;
         Assert.IsNotNull(jsonResult);
         var response = jsonResult.Value!;
         Assert.AreEqual("Development", response.Environment);
@@ -39,7 +39,7 @@ public class InfoEndpointTests
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<InfoEndpoint.InfoResponse>;
+        var jsonResult = result as JsonHttpResult<InfoResponse>;
         Assert.IsNotNull(jsonResult);
         var response = jsonResult.Value!;
         Assert.AreEqual("Test", response.Environment);

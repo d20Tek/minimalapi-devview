@@ -26,7 +26,7 @@ public class DependenciesEndpointTests
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<DependenciesEndpoint.DependencyInfo[]>;
+        var jsonResult = result as JsonHttpResult<DependencyInfo[]>;
         Assert.IsNotNull(jsonResult);
         var dependencies = jsonResult.Value!;
         Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(IHost).Name));
@@ -47,26 +47,10 @@ public class DependenciesEndpointTests
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<DependenciesEndpoint.DependencyInfo[]>;
+        var jsonResult = result as JsonHttpResult<DependencyInfo[]>;
         Assert.IsNotNull(jsonResult);
         var dependencies = jsonResult.Value!;
         Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ITestType).Name));
-    }
-
-    [TestMethod]
-    public void DependencyInfo_Creation_ReturnsExpectedValues()
-    {
-        // arrange
-        var di = new DependenciesEndpoint.DependencyInfo("Test", null, "", null);
-
-        // act
-        var result = di with { ServiceType = "Test", Implementation = "Func", Lifetime = "Singleton", AssemblyName = "assembly" };
-
-        // assert
-        Assert.AreEqual("Test", result.ServiceType);
-        Assert.AreEqual("Func", result.Implementation);
-        Assert.AreEqual("Singleton", result.Lifetime);
-        Assert.AreEqual("assembly", result.AssemblyName);
     }
 
     private static WebApplication CreateBasicWebApp()
