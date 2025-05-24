@@ -29,23 +29,11 @@ public static partial class DependenciesEndpoint
 
     private static DependencyInfo CreateDependencyInfo(ServiceDescriptor descriptor)
     {
-        var implementationType = GetImplementationType(descriptor);
+        var implementationType = descriptor.GetCompositeImplementationType();
         return new(
             descriptor.ServiceType.Name!,
             implementationType.FullName,
             descriptor.Lifetime.ToString(),
             implementationType.Assembly.GetName().Name);
     }
-
-    internal static Type GetImplementationType(ServiceDescriptor descriptor) =>
-        descriptor switch
-        {
-            { ImplementationType: not null } => descriptor.ImplementationType,
-            { ImplementationInstance: not null } => descriptor.ImplementationInstance.GetType(),
-            { ImplementationFactory: not null } => descriptor.ImplementationFactory.GetType(),
-            { KeyedImplementationType: not null } => descriptor.KeyedImplementationType,
-            { KeyedImplementationInstance: not null } => descriptor.KeyedImplementationInstance.GetType(),
-            { KeyedImplementationFactory: not null } => descriptor.KeyedImplementationFactory.GetType(),
-            _ => throw new ArgumentNullException(nameof(descriptor)),
-        };
 }
