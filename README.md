@@ -83,6 +83,32 @@ With DevView added, your MinimalApi project will now have two additional routes 
 ]
 ```
 
+/dev/deps - lists all services registered with the WebApi dependency injection container:
+/dev/routes - lists all mapped Minimal API endpoints:
+```json
+[
+  {
+    "serviceType": "IHostingEnvironment",
+    "implementation": "Microsoft.Extensions.Hosting.Internal.HostingEnvironment",
+    "lifetime": "Singleton",
+    "assemblyName": "Microsoft.Extensions.Hosting"
+  },
+  {
+    "serviceType": "IHostEnvironment",
+    "implementation": "Microsoft.Extensions.Hosting.Internal.HostingEnvironment",
+    "lifetime": "Singleton",
+    "assemblyName": "Microsoft.Extensions.Hosting"
+  },
+  {
+    "serviceType": "HostBuilderContext",
+    "implementation": "Microsoft.Extensions.Hosting.HostBuilderContext",
+    "lifetime": "Singleton",
+    "assemblyName": "Microsoft.Extensions.Hosting.Abstractions"
+  },
+  ...
+]
+```
+
 ### Logging
 By default, DevView registers a request/response logger to help with debugging your service. The logging output looks like this:
 ```bash
