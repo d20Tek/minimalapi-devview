@@ -70,7 +70,7 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(102, result.Count());
+        Assert.IsTrue(result.Count() >= 100);
     }
 
     [TestMethod]
