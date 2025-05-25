@@ -21,6 +21,7 @@ public static partial class DependenciesEndpoint
         ArgumentNullException.ThrowIfNull(services, nameof(IRegisteredServicesProvider));
 
         var deps = services.Services.Where(sd => sd.ServiceType is not null)
+                                    //.Pipe()
                                     .Select(sd => CreateDependencyInfo(sd))
                                     .ToArray();
 

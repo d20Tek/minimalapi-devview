@@ -1,13 +1,12 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
+using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 
@@ -18,7 +17,7 @@ public class DependenciesEndpointTests
     public void GetDependencyInfo_BasicServiceDefintions_ReturnsExpectedJsonResult()
     {
         // arrange
-        var app = CreateBasicWebApp();
+        var app = WebApplicationFactory.CreateBasicWebApp();
         HttpContext context = CreateContext(app);
 
         // act 
@@ -39,7 +38,7 @@ public class DependenciesEndpointTests
     public void GetDependencyInfo_WithKeyedServices_ReturnsExpectedJsonResult()
     {
         // arrange
-        var app = CreateKeyedServicesWebApp();
+        var app = WebApplicationFactory.CreateKeyedServicesWebApp();
         HttpContext context = CreateContext(app);
 
         // act 
@@ -53,32 +52,9 @@ public class DependenciesEndpointTests
         Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ITestType).Name));
     }
 
-    private static WebApplication CreateBasicWebApp()
-    {
-        var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { EnvironmentName = "Development" });
-        builder.Services.AddDevView(builder.Configuration);
-
-        return builder.Build();
-    }
-
-    private static WebApplication CreateKeyedServicesWebApp()
-    {
-        var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { EnvironmentName = "Development" });
-        builder.Services.AddKeyedScoped<ITestType, TestType>("key")
-                        .AddKeyedSingleton<ITestType>("key", new TestType())
-                        .AddKeyedScoped<ITestType>("key", [ExcludeFromCodeCoverage](sp, k) => new TestType())
-                        .AddDevView(builder.Configuration);
-
-        return builder.Build();
-    }
-
     private static HttpContext CreateContext(WebApplication app) =>
         new DefaultHttpContext
         {
             RequestServices = app.Services
         };
-
-    internal interface ITestType;
-
-    internal class TestType : ITestType { }
 }
