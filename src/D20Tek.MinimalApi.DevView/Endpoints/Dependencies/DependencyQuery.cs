@@ -1,16 +1,34 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
-internal class DependencyQuery
+public class DependencyQuery
 {
-    public string? Namespace { get; set; }
+    [FromQuery]
+    public string? Namespace { get; init; }
 
-    public string? Lifetime { get; set; }
+    [FromQuery]
+    public string? Lifetime { get; init; }
 
-    public string? ServiceContains { get; set; }
+    [FromQuery]
+    public string? ServiceContains { get; init; }
 
-    public string? Assembly { get; set; }
+    [FromQuery]
+    public string? Assembly { get; init; }
+
+    public static DependencyQuery Create(IQueryCollection queryString)
+    {
+        ArgumentNullException.ThrowIfNull(queryString, nameof(queryString));
+        return new()
+        {
+            Namespace = queryString["namespace"],
+            Lifetime = queryString["lifetime"],
+            ServiceContains = queryString["serviceContains"],
+            Assembly = queryString["assembly"]
+        };
+    }
 
     public IEnumerable<ServiceDescriptor> ApplyFilters(IEnumerable<ServiceDescriptor> descriptors)
     {

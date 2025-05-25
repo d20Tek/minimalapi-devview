@@ -7,7 +7,9 @@ namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
 public static partial class DependenciesEndpoint
 {
-    public static IEndpointRouteBuilder MapDependenciesExplorer(this IEndpointRouteBuilder endpoints, DevViewOptions options)
+    public static IEndpointRouteBuilder MapDependenciesExplorer(
+        this IEndpointRouteBuilder endpoints,
+        DevViewOptions options)
     {
         var basePath = options.BasePath;
         endpoints.MapGet($"{basePath}/deps", GetDependencyInfo);
@@ -20,8 +22,9 @@ public static partial class DependenciesEndpoint
         var services = context.RequestServices.GetService<IRegisteredServicesProvider>();
         ArgumentNullException.ThrowIfNull(services, nameof(IRegisteredServicesProvider));
 
+        var query = DependencyQuery.Create(context.Request.Query);
         var deps = services.Services.Where(sd => sd.ServiceType is not null)
-                                    //.Pipe()
+                                    .Filter(query)
                                     .Select(sd => CreateDependencyInfo(sd))
                                     .ToArray();
 
@@ -37,4 +40,9 @@ public static partial class DependenciesEndpoint
             descriptor.Lifetime.ToString(),
             implementationType.Assembly.GetName().Name);
     }
+
+    private static IEnumerable<ServiceDescriptor> Filter(
+        this IEnumerable<ServiceDescriptor> descriptors,
+        DependencyQuery query) =>
+        query.ApplyFilters(descriptors);
 }
