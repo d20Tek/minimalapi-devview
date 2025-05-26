@@ -55,8 +55,8 @@ public class RouteEndpointQuery
     }
 
     private static string DictionaryItemAsString(Dictionary<string, object?> dict, string key) =>
-        dict[key] as string ?? string.Empty;
+        dict.TryGetValue(key, out var value) && value is string result ? result : string.Empty;
 
     private static string[] DictionaryItemAsStringArray(Dictionary<string, object?> dict, string key) =>
-        dict[key] as string[] ?? [string.Empty];
+        dict.TryGetValue(key, out var value) && value is string[] result ? result : [];
 }

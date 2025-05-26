@@ -15,17 +15,29 @@ public static class RoutesEndpoint
         return endpoints;
     }
 
-    internal static IResult GetRoutes(EndpointDataSource endpointSource, IOptions<DevViewOptions> options)
+    internal static IResult GetRoutes(
+        EndpointDataSource endpointSource,
+        HttpContext context,
+        IOptions<DevViewOptions> options)
     {
         ArgumentNullException.ThrowIfNull(endpointSource, nameof(endpointSource));
-        var routes = DiscoverRoutes(endpointSource, options.Value);
+
+        var query = RouteEndpointQuery.Create(context.Request.Query);
+        var routes = DiscoverRoutes(endpointSource, options.Value, query);
         return Results.Json(routes);
     }
 
     private static IEnumerable<Dictionary<string, object?>> DiscoverRoutes(
         EndpointDataSource endpointSource,
-        DevViewOptions options) =>
+        DevViewOptions options,
+        RouteEndpointQuery query) =>
         endpointSource.Endpoints.OfType<RouteEndpoint>()
                                 .Select(ep => ep.InspectEndpoint(options))
-                                .Where(x => x.Count > 0);
+                                .Where(x => x.Count > 0)
+                                .Filter(query);
+
+    private static IEnumerable<Dictionary<string, object?>> Filter(
+        this IEnumerable<Dictionary<string, object?>> endpoints,
+        RouteEndpointQuery query) =>
+        query.ApplyFilters(endpoints);
 }

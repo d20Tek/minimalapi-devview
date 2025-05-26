@@ -248,4 +248,130 @@ public class RouteEndpointQueryTests
         Assert.IsNotNull(result);
         Assert.AreEqual(0, result.Count());
     }
+
+    [TestMethod]
+    public void ApplyFilters_WithMissingStringResult_ReturnsEmptyList()
+    {
+        // arrange
+        var metadata = new List<Dictionary<string, object?>>()
+        {
+            new Dictionary<string, object?>()
+            {
+                { "Tags", new string[] { "foo" } },
+                { "Name", null }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Tags", new string[] { "foo", "bar" } },
+                { "Name", null }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Tags", new string[] { "baz" } },
+                { "Name", null }
+            }
+        };
+
+        var query = new RouteEndpointQuery { EndpointName = "none" };
+
+        // act
+        var result = query.ApplyFilters(metadata);
+
+        // assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(0, result.Count());
+    }
+
+    [TestMethod]
+    public void ApplyFilters_WithMissingStringArrayResult_ReturnsEmptyList()
+    {
+        // arrange
+        var metadata = new List<Dictionary<string, object?>>()
+        {
+            new Dictionary<string, object?>()
+            {
+                { "Tags", null },
+                { "Name", "test1" }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Tags", null },
+                { "Name", "test2" }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Tags", null },
+                { "Name", "test3" }
+            }
+        };
+
+        var query = new RouteEndpointQuery { Tag = "none" };
+
+        // act
+        var result = query.ApplyFilters(metadata);
+
+        // assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(0, result.Count());
+    }
+
+    [TestMethod]
+    public void ApplyFilters_WithMissingKeyOfList_ReturnsEmptyList()
+    {
+        // arrange
+        var metadata = new List<Dictionary<string, object?>>()
+        {
+            new Dictionary<string, object?>()
+            {
+                { "Name", "Endpoint1" }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Name", "Func2" }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Name", "Endpoint3" }
+            }
+        };
+
+        var query = new RouteEndpointQuery { Tag = "foo" };
+
+        // act
+        var result = query.ApplyFilters(metadata);
+
+        // assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(0, result.Count());
+    }
+
+    [TestMethod]
+    public void ApplyFilters_WithMissingKeyOfString_ReturnsEmptyList()
+    {
+        // arrange
+        var metadata = new List<Dictionary<string, object?>>()
+        {
+            new Dictionary<string, object?>()
+            {
+                { "Name", "Endpoint1" }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Name", "Func2" }
+            },
+            new Dictionary<string, object?>()
+            {
+                { "Name", "Endpoint3" }
+            }
+        };
+
+        var query = new RouteEndpointQuery { Route = "foo" };
+
+        // act
+        var result = query.ApplyFilters(metadata);
+
+        // assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(0, result.Count());
+    }
 }

@@ -3,6 +3,7 @@ using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 
@@ -16,6 +17,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/hello", "TestHandler", typeof(TestResponse))
@@ -24,11 +26,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var methods = endpointDict["Method"] as string[];
@@ -47,6 +49,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/hello", "TestHandler", typeof(TestResponse)),
@@ -56,11 +59,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var methods = endpointDict["Method"] as string[];
@@ -86,6 +89,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/dev/info", "DevHandler", typeof(TestResponse))
@@ -94,11 +98,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         Assert.AreEqual(0, jsonResult.Value!.Count());
     }
@@ -108,6 +112,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions { IncludeRouteDebugDetails = true });
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/hello", "TestHandler", typeof(TestResponse))
@@ -116,11 +121,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var methods = endpointDict["Method"] as string[];
@@ -135,6 +140,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/hello", "TestHandler", ["tag1", "tag2"])
@@ -143,11 +149,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var methods = endpointDict["Method"] as string[];
@@ -164,6 +170,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/hello", "TestHandler", ["tag1", "tag2"])
@@ -172,11 +179,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var methods = endpointDict["Method"] as string[];
@@ -191,6 +198,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/hello", "TestHandler", typeof(IResult))
@@ -199,11 +207,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var produces = endpointDict["Produces"] as string[];
@@ -218,6 +226,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateRouteEndpoint(
@@ -227,11 +236,11 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var produces = endpointDict["Produces"] as string[];
@@ -246,6 +255,7 @@ public sealed class RoutesEndpointTests
     {
         // arrange
         var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
         var endpoints = new List<Endpoint>
         {
             EndpointDataSourceFactory.CreateNoPatternEndpoint("GET")
@@ -254,13 +264,46 @@ public sealed class RoutesEndpointTests
         var endpointSource = new FakeEndpointDataSource(endpoints);
 
         // act
-        var result = RoutesEndpoint.GetRoutes(endpointSource, options) as IResult;
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
         Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object>>>;
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         Assert.AreEqual("none", endpointDict["Pattern"]);
+    }
+
+    [TestMethod]
+    public void GetRoutes_WithEndpointsFilter_ReturnsExpectedJsonResult()
+    {
+        // arrange
+        var options = Options.Create(new DevViewOptions());
+        var context = new DefaultHttpContext();
+        context.Request.Query = new QueryCollection(new Dictionary<string, StringValues>
+        {
+            ["endpointName"] = "TestHandler",
+        });
+
+        var endpoints = new List<Endpoint>
+        {
+            EndpointDataSourceFactory.CreateRouteEndpoint("GET", "/hello", "TestHandler", []),
+            EndpointDataSourceFactory.CreateRouteEndpoint("DELETE", "/hello/{id}", "DeleteHandler", [])
+        };
+
+        var endpointSource = new FakeEndpointDataSource(endpoints);
+
+        // act
+        var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
+
+        // assert
+        Assert.IsNotNull(result);
+        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
+        Assert.IsNotNull(jsonResult);
+        Assert.AreEqual(1, jsonResult.Value!.Count());
+        var endpointDict = jsonResult.Value!.First();
+        var methods = endpointDict["Method"] as string[];
+        CollectionAssert.Contains(methods, "GET");
+        Assert.AreEqual("/hello", endpointDict["Pattern"]);
     }
 }
