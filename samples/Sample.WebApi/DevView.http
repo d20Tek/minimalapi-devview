@@ -8,6 +8,10 @@ Accept: application/json
 GET {{Sample.WebApi_HostAddress}}/dev/routes
 Accept: application/json
 
+### GET route details (filtered)
+GET {{Sample.WebApi_HostAddress}}/dev/routes?route=v2
+Accept: application/json
+
 ### GET dependencies
 GET {{Sample.WebApi_HostAddress}}/dev/deps
 Accept: application/json
