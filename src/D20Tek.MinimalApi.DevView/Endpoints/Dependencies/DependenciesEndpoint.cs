@@ -35,7 +35,7 @@ public static partial class DependenciesEndpoint
     {
         var implementationType = descriptor.GetCompositeImplementationType();
         return new(
-            descriptor.ServiceType.Name!,
+            descriptor.ServiceType.FullName!,
             implementationType.FullName,
             descriptor.Lifetime.ToString(),
             implementationType.Assembly.GetName().Name);

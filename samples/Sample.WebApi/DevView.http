@@ -13,5 +13,5 @@ GET {{Sample.WebApi_HostAddress}}/dev/deps
 Accept: application/json
 
 ### GET dependencies (filtered)
-GET {{Sample.WebApi_HostAddress}}/dev/deps?serviceContains=D20Tek
+GET {{Sample.WebApi_HostAddress}}/dev/deps?serviceType=Sample.WebApi
 Accept: application/json

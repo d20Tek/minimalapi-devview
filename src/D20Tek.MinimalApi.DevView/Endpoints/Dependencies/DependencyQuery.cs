@@ -7,13 +7,13 @@ namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 public class DependencyQuery
 {
     [FromQuery]
-    public string? Namespace { get; init; }
+    public string? Implementation { get; init; }
 
     [FromQuery]
     public string? Lifetime { get; init; }
 
     [FromQuery]
-    public string? ServiceContains { get; init; }
+    public string? ServiceType { get; init; }
 
     [FromQuery]
     public string? Assembly { get; init; }
@@ -23,9 +23,9 @@ public class DependencyQuery
         ArgumentNullException.ThrowIfNull(queryString, nameof(queryString));
         return new()
         {
-            Namespace = queryString["namespace"],
+            Implementation = queryString["implementation"],
             Lifetime = queryString["lifetime"],
-            ServiceContains = queryString["serviceContains"],
+            ServiceType = queryString["serviceType"],
             Assembly = queryString["assembly"]
         };
     }
@@ -33,10 +33,10 @@ public class DependencyQuery
     public IEnumerable<ServiceDescriptor> ApplyFilters(IEnumerable<ServiceDescriptor> descriptors)
     {
         var filtered = descriptors;
-        if (string.IsNullOrWhiteSpace(Namespace) is false)
+        if (string.IsNullOrWhiteSpace(Implementation) is false)
         {
             filtered = filtered.Where(
-                sd => sd.GetCompositeImplementationType().Namespace!.StartsWith(Namespace) == true);
+                sd => sd.GetCompositeImplementationType().FullName!.Contains(Implementation) == true);
         }
 
         if (Enum.TryParse<ServiceLifetime>(Lifetime, true, out var lifetime))
@@ -44,9 +44,9 @@ public class DependencyQuery
             filtered = filtered.Where(sd => sd.Lifetime == lifetime);
         }
 
-        if (string.IsNullOrWhiteSpace(ServiceContains) is false)
+        if (string.IsNullOrWhiteSpace(ServiceType) is false)
         {
-            filtered = filtered.Where(sd => sd.ServiceType.FullName!.Contains(ServiceContains) == true);
+            filtered = filtered.Where(sd => sd.ServiceType.FullName!.Contains(ServiceType) == true);
         }
 
         if (string.IsNullOrWhiteSpace(Assembly) is false)

@@ -13,14 +13,14 @@ public class DependencyQueryTests
         // arrange
         var app = WebApplicationFactory.CreateKeyedServicesWebApp();
         var provider = app.Services.GetRequiredService<IRegisteredServicesProvider>();
-        var query = new DependencyQuery { Namespace = "D20Tek" };
+        var query = new DependencyQuery { Implementation = "D20Tek" };
 
         // act
         var result = query.ApplyFilters(provider.Services);
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(2, result.Count());
+        Assert.AreEqual(6, result.Count());
         Assert.IsTrue(result.Any(x => x.ServiceType == typeof(ITestType)));
     }
 
@@ -30,7 +30,7 @@ public class DependencyQueryTests
         // arrange
         var app = WebApplicationFactory.CreateKeyedServicesWebApp();
         var provider = app.Services.GetRequiredService<IRegisteredServicesProvider>();
-        var query = new DependencyQuery { Namespace = "Bogus" };
+        var query = new DependencyQuery { Implementation = "Bogus" };
 
         // act
         var result = query.ApplyFilters(provider.Services);
@@ -79,7 +79,7 @@ public class DependencyQueryTests
         // arrange
         var app = WebApplicationFactory.CreateKeyedServicesWebApp();
         var provider = app.Services.GetRequiredService<IRegisteredServicesProvider>();
-        var query = new DependencyQuery { ServiceContains = "ITestType" };
+        var query = new DependencyQuery { ServiceType = "ITestType" };
 
         // act
         var result = query.ApplyFilters(provider.Services);
@@ -96,7 +96,7 @@ public class DependencyQueryTests
         // arrange
         var app = WebApplicationFactory.CreateKeyedServicesWebApp();
         var provider = app.Services.GetRequiredService<IRegisteredServicesProvider>();
-        var query = new DependencyQuery { ServiceContains = "Bogus" };
+        var query = new DependencyQuery { ServiceType = "Bogus" };
 
         // act
         var result = query.ApplyFilters(provider.Services);

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Primitives;
 using System.Diagnostics;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
@@ -28,10 +29,10 @@ public class DependenciesEndpointTests
         var jsonResult = result as JsonHttpResult<DependencyInfo[]>;
         Assert.IsNotNull(jsonResult);
         var dependencies = jsonResult.Value!;
-        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(IHost).Name));
-        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ILoggerFactory).Name));
-        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ActivitySource).Name));
-        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ConsoleFormatter).Name));
+        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(IHost).FullName));
+        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ILoggerFactory).FullName));
+        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ActivitySource).FullName));
+        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ConsoleFormatter).FullName));
     }
 
     [TestMethod]
@@ -49,12 +50,42 @@ public class DependenciesEndpointTests
         var jsonResult = result as JsonHttpResult<DependencyInfo[]>;
         Assert.IsNotNull(jsonResult);
         var dependencies = jsonResult.Value!;
-        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ITestType).Name));
+        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(ITestType).FullName));
     }
 
-    private static HttpContext CreateContext(WebApplication app) =>
-        new DefaultHttpContext
+    [TestMethod]
+    public void GetDependencyInfo_WithFilteredServiceType_ReturnsExpectedJsonResult()
+    {
+        // arrange
+        var app = WebApplicationFactory.CreateBasicWebApp();
+        var query = new QueryCollection(new Dictionary<string, StringValues>
         {
-            RequestServices = app.Services
+            ["serviceType"] = "D20Tek",
+        });
+        HttpContext context = CreateContext(app, query);
+
+        // act 
+        var result = DependenciesEndpoint.GetDependencyInfo(context);
+
+        // assert
+        Assert.IsNotNull(result);
+        var jsonResult = result as JsonHttpResult<DependencyInfo[]>;
+        Assert.IsNotNull(jsonResult);
+        var dependencies = jsonResult.Value!;
+        Assert.IsFalse(dependencies.Any(d => d.ServiceType == typeof(IHost).FullName));
+        Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(IRegisteredServicesProvider).FullName));
+    }
+
+    private static HttpContext CreateContext(WebApplication app, IQueryCollection? query = null)
+    {
+        var context = new DefaultHttpContext
+        {
+            RequestServices = app.Services,
+
         };
+
+        context.Request.Query = query ?? new QueryCollection();
+
+        return context;
+    }
 }
