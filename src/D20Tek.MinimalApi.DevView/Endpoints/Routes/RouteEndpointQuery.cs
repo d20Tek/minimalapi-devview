@@ -48,7 +48,7 @@ public class RouteEndpointQuery
         if (string.IsNullOrWhiteSpace(Tag) is false)
         {
             filtered = filtered.Where(
-                d => DictionaryItemAsStringArray(d, "Tags").Contains(Method));
+                d => DictionaryItemAsStringArray(d, "Tags").Contains(Tag));
         }
 
         return filtered;
