@@ -1,32 +1,27 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
 public class DependencyQuery
 {
-    [FromQuery]
     public string? Implementation { get; init; }
 
-    [FromQuery]
     public string? Lifetime { get; init; }
 
-    [FromQuery]
     public string? ServiceType { get; init; }
 
-    [FromQuery]
     public string? Assembly { get; init; }
 
-    public static DependencyQuery Create(IQueryCollection queryString)
+    public static DependencyQuery Create(IQueryCollection query)
     {
-        ArgumentNullException.ThrowIfNull(queryString, nameof(queryString));
+        ArgumentNullException.ThrowIfNull(query, nameof(query));
         return new()
         {
-            Implementation = queryString["implementation"],
-            Lifetime = queryString["lifetime"],
-            ServiceType = queryString["serviceType"],
-            Assembly = queryString["assembly"]
+            Implementation = query["implementation"],
+            Lifetime = query["lifetime"],
+            ServiceType = query["serviceType"],
+            Assembly = query["assembly"]
         };
     }
 

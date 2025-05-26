@@ -32,10 +32,12 @@ internal static partial class RouteEndpointExtensions
 
         if (options.IncludeRouteDebugDetails)
         {
-            routeInfo["MetadataTypes"] = endpoint.Metadata.Select(t => $"Type: {t.GetType().Name}, Value:{t}")
+            routeInfo["MetadataTypes"] = endpoint.Metadata.Select(t => GetTypeMetadata(t))
                                                           .ToArray();
         }
 
         return routeInfo;
     }
+
+    private static string GetTypeMetadata(object t) => $"Type: {t.GetType().Name}, Value:{t}";
 }
