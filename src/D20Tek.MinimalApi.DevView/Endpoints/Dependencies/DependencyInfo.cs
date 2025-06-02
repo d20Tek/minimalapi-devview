@@ -1,6 +1,6 @@
 ﻿namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
-public record DependencyInfo(
+public sealed record DependencyInfo(
     string ServiceType,
     string? Implementation,
     string Lifetime,

@@ -12,7 +12,7 @@ public static partial class DependenciesEndpoint
         DevViewOptions options)
     {
         var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/deps", GetDependencyInfo);
+        endpoints.MapGet($"{basePath}/deps", GetDependencyInfo).WithTags("DevView");
 
         return endpoints;
     }

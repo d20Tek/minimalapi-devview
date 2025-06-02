@@ -13,7 +13,7 @@ public static partial class InfoEndpoint
     public static IEndpointRouteBuilder MapInfoEndpoint(this IEndpointRouteBuilder endpoints, DevViewOptions options)
     {
         var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/info", GetDevInfo);
+        endpoints.MapGet($"{basePath}/info", GetDevInfo).WithTags("DevView");
         return endpoints;
     }
 

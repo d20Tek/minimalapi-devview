@@ -1,4 +1,5 @@
-﻿using D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
+﻿using D20Tek.MinimalApi.DevView.Endpoints.Configs;
+using D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 using D20Tek.MinimalApi.DevView.Endpoints.Info;
 using D20Tek.MinimalApi.DevView.Endpoints.Routes;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ public static class DependencyInjection
             endpoints.MapInfoEndpoint(options.Value);
             endpoints.MapRoutesExplorer(options.Value);
             endpoints.MapDependenciesExplorer(options.Value);
+            endpoints.MapConfigurationExplorer(options.Value);
         });
     }
 }

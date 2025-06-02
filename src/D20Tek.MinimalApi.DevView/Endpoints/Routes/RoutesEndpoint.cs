@@ -10,7 +10,7 @@ public static class RoutesEndpoint
     public static IEndpointRouteBuilder MapRoutesExplorer(this IEndpointRouteBuilder endpoints, DevViewOptions options)
     {
         var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/routes", GetRoutes);
+        endpoints.MapGet($"{basePath}/routes", GetRoutes).WithTags("DevView");
 
         return endpoints;
     }
