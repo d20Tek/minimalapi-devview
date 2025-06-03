@@ -23,3 +23,7 @@ Accept: application/json
 ### GET config
 GET {{Sample.WebApi_HostAddress}}/dev/config
 Accept: application/json
+
+### GET config (filtered)
+GET {{Sample.WebApi_HostAddress}}/dev/config?keyName=DevView
+Accept: application/json

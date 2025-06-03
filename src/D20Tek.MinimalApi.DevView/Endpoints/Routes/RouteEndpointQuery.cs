@@ -30,19 +30,19 @@ public class RouteEndpointQuery
         if (string.IsNullOrWhiteSpace(Route) is false)
         {
             filtered = filtered.Where(
-                d => DictionaryItemAsString(d, "Pattern").Contains(Route));
+                d => DictionaryItemAsString(d, "Pattern").Contains(Route, StringComparison.OrdinalIgnoreCase));
         }
 
         if (string.IsNullOrWhiteSpace(Method) is false)
         {
             filtered = filtered.Where(
-                d => DictionaryItemAsStringArray(d, "Method").Contains(Method));
+                d => DictionaryItemAsStringArray(d, "Method").Contains(Method.ToUpper()));
         }
 
         if (string.IsNullOrWhiteSpace(EndpointName) is false)
         {
             filtered = filtered.Where(
-                d => DictionaryItemAsString(d, "Name").Contains(EndpointName));
+                d => DictionaryItemAsString(d, "Name").Contains(EndpointName, StringComparison.OrdinalIgnoreCase));
         }
 
         if (string.IsNullOrWhiteSpace(Tag) is false)

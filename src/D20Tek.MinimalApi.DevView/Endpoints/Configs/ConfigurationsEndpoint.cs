@@ -18,20 +18,24 @@ public static class ConfigurationsEndpoint
         return endpoints;
     }
 
-    internal static IResult GetConfigInfo(IConfiguration config, IOptions<DevViewOptions> options)
+    internal static IResult GetConfigInfo(IConfiguration config, HttpContext context, IOptions<DevViewOptions> options)
     {
         ArgumentNullException.ThrowIfNull(config, nameof(config));
 
-        var configs = GetDetailedConfigEntries(config, options.Value);
+        var query = ConfigQuery.Create(context.Request.Query);
+        var configs = GetDetailedConfigEntries(config, query, options.Value);
         return Results.Json(configs);
     }
 
-    private static IList<ConfigInfo> GetDetailedConfigEntries(IConfiguration config, DevViewOptions options)
+    private static IList<ConfigInfo> GetDetailedConfigEntries(
+        IConfiguration config,
+        ConfigQuery query,
+        DevViewOptions options)
     {
         if (config is not IConfigurationRoot root) return [];
 
         var keys = config.AsEnumerable().Select(kvp => kvp.Key).Distinct().ToList();
         var configs = root.GetConfigDetails(keys, options);
-        return configs;
+        return query.ApplyFilters(configs).ToList();
     }
 }

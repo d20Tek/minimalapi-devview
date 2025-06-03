@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
-public class DependencyQuery
+public sealed class DependencyQuery
 {
     public string? Implementation { get; init; }
 
@@ -31,7 +31,9 @@ public class DependencyQuery
         if (string.IsNullOrWhiteSpace(Implementation) is false)
         {
             filtered = filtered.Where(
-                sd => sd.GetCompositeImplementationType().FullName!.Contains(Implementation) == true);
+                sd => sd.GetCompositeImplementationType()
+                        .FullName!
+                        .Contains(Implementation, StringComparison.OrdinalIgnoreCase) is true);
         }
 
         if (Enum.TryParse<ServiceLifetime>(Lifetime, true, out var lifetime))
@@ -41,13 +43,16 @@ public class DependencyQuery
 
         if (string.IsNullOrWhiteSpace(ServiceType) is false)
         {
-            filtered = filtered.Where(sd => sd.ServiceType.FullName!.Contains(ServiceType) == true);
+            filtered = filtered.Where(sd => sd.ServiceType.FullName!
+                                              .Contains(ServiceType, StringComparison.OrdinalIgnoreCase) is true);
         }
 
         if (string.IsNullOrWhiteSpace(Assembly) is false)
         {
             filtered = filtered.Where(
-                sd => sd.GetCompositeImplementationType().Assembly.GetName().Name!.Contains(Assembly) == true);
+                sd => sd.GetCompositeImplementationType()
+                        .Assembly.GetName().Name!
+                        .Contains(Assembly, StringComparison.OrdinalIgnoreCase) is true);
         }
 
         return filtered;
