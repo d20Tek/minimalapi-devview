@@ -27,14 +27,12 @@ internal static class ConfigurationRootExtensions
 
                 var isSensitive = KeywordChecker.IsSensitive(key);
 
-                entries[key] = new ConfigInfo
-                {
-                    Key = key,
-                    Value = GetDisplayValue(value, isSensitive, options),
-                    Source = provider.GetFriendlyName(),
-                    IsSensitive = isSensitive,
-                    ValueType = ValueTypeMapper.InferFrom(value),
-                };
+                entries[key] = new ConfigInfo(
+                    key,
+                    GetDisplayValue(value, isSensitive, options),
+                    provider.GetFriendlyName(),
+                    isSensitive,
+                    ValueTypeMapper.InferFrom(value));
             }
         }
 
