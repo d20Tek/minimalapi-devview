@@ -1,13 +1,18 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Configs;
 
 internal static class ConfigurationRootExtensions
 {
-    public static IList<ConfigInfo> GetConfigDetails(this IConfigurationRoot root, List<string> keys)
+    private const string _privateData = "*****";
+
+    public static IList<ConfigInfo> GetConfigDetails(
+        this IConfigurationRoot root,
+        List<string> keys,
+        DevViewOptions options)
     {
         var entries = new Dictionary<string, ConfigInfo>(StringComparer.OrdinalIgnoreCase);
-
         var providers = root.Providers.ToList();
 
         foreach (var provider in providers)
@@ -17,13 +22,15 @@ internal static class ConfigurationRootExtensions
                 if (!provider.TryGet(key, out var value))
                     continue;
 
-                var isSensitive = KeywordChecker.IsSensitive(value);
+                if (ShouldSkipEnvVariable(provider, key, options))
+                    continue;
 
-                // Always overwrite with higher-priority provider
+                var isSensitive = KeywordChecker.IsSensitive(key);
+
                 entries[key] = new ConfigInfo
                 {
                     Key = key,
-                    Value = isSensitive ? "*****" : value,
+                    Value = isSensitive ? _privateData : value,
                     Source = provider.GetFriendlyName(),
                     IsSensitive = isSensitive,
                     ValueType = ValueTypeMapper.InferFrom(value),
@@ -31,6 +38,13 @@ internal static class ConfigurationRootExtensions
             }
         }
 
-        return entries.Values.OrderBy(e => e.Source).ThenBy(e => e.Key).ToList();
+        return entries.Values.OrderBy(e => e.Source)
+                             .ThenBy(e => e.Key)
+                             .ToList();
     }
+
+    private static bool ShouldSkipEnvVariable(IConfigurationProvider provider, string key, DevViewOptions options) =>
+        !options.IncludeAllEnvVariables &&
+        provider is EnvironmentVariablesConfigurationProvider &&
+        !EnvironmentVariables.IsRelevant(key);
 }
