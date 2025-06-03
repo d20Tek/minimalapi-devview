@@ -13,6 +13,8 @@ public class DevViewOptions
     public bool IncludeRouteDebugDetails { get; set; } = false;
 
     public bool IncludeAllEnvVariables { get; set; } = false;
+
+    public bool ShowSensitiveConfigData { get; set; } = false;
     
     public bool EnableLogging { get; set; } = true;
     

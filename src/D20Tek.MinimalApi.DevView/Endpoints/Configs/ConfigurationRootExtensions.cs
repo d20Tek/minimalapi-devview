@@ -30,7 +30,7 @@ internal static class ConfigurationRootExtensions
                 entries[key] = new ConfigInfo
                 {
                     Key = key,
-                    Value = isSensitive ? _privateData : value,
+                    Value = GetDisplayValue(value, isSensitive, options),
                     Source = provider.GetFriendlyName(),
                     IsSensitive = isSensitive,
                     ValueType = ValueTypeMapper.InferFrom(value),
@@ -47,4 +47,7 @@ internal static class ConfigurationRootExtensions
         !options.IncludeAllEnvVariables &&
         provider is EnvironmentVariablesConfigurationProvider &&
         !EnvironmentVariables.IsRelevant(key);
+
+    private static string? GetDisplayValue(string? value, bool isSensitive, DevViewOptions options) =>
+        options.ShowSensitiveConfigData ? value : isSensitive ? _privateData : value;
 }
