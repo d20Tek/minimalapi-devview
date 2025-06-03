@@ -21,7 +21,16 @@ public static class ConfigurationsEndpoint
     {
         ArgumentNullException.ThrowIfNull(config, nameof(config));
 
-        var configs = Enumerable.Empty<ConfigInfo>();
+        var configs = GetDetailedConfigEntries(config);
         return Results.Json(configs);
+    }
+
+    private static IList<ConfigInfo> GetDetailedConfigEntries(IConfiguration config)
+    {
+        if (config is not IConfigurationRoot root) return [];
+
+        var keys = config.AsEnumerable().Select(kvp => kvp.Key).Distinct().ToList();
+        var configs = root.GetConfigDetails(keys);
+        return configs;
     }
 }

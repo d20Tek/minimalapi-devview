@@ -20,6 +20,6 @@ Accept: application/json
 GET {{Sample.WebApi_HostAddress}}/dev/deps?serviceType=Sample.WebApi
 Accept: application/json
 
-### GET dependencies
+### GET config
 GET {{Sample.WebApi_HostAddress}}/dev/config
 Accept: application/json
