@@ -5,9 +5,7 @@ namespace D20Tek.MinimalApi.DevView.Endpoints.Configs;
 
 internal static class ConfigurationProviderExtensions
 {
-    private static string _appSettings(string? file) => $"appsettings ({file})";
-    private const string _secretsProvider = "UserSecretsConfigurationProvider";
-    private const string _userSecrets = "User Secrets";
+    private static string _appSettings(string? file) => $"Appsettings ({file})";
     private const string _env = "Environment Variable";
     private const string _commandLine = "Command Line";
     private const string _inMemory = "In-Memory";
@@ -16,8 +14,6 @@ internal static class ConfigurationProviderExtensions
         provider switch
         {
             JsonConfigurationProvider json => _appSettings(json.Source.Path),
-
-            _ when provider.GetType().FullName?.Contains(_secretsProvider) == true => _userSecrets,
 
             Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider => _env,
 
