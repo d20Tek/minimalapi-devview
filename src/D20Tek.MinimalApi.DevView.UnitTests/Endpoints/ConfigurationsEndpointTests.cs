@@ -96,7 +96,7 @@ public class ConfigurationsEndpointTests
     }
 
     [TestMethod]
-    public void GetConfigInfo_WithWithCommandLine_ReturnsExpectedJsonResult()
+    public void GetConfigInfo_WithCommandLine_ReturnsExpectedJsonResult()
     {
         // arrange
         var config = ConfigurationFactory.CreateConfigWithCommandLine();
