@@ -3,6 +3,7 @@ using D20Tek.MinimalApi.DevView;
 using Sample.WebApi.Endpoints.Forecasts;
 using Microsoft.AspNetCore.Mvc;
 using Sample.WebApi.Endpoints.Tasks;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,16 +14,20 @@ builder.Services.AddLowDbAsync<TasksDocument>(b =>
     b.UseFileDatabase("tasks.json")
      .WithFolder("data")
      .WithLifetime(ServiceLifetime.Scoped));
-builder.Services.AddDevView(builder.Configuration);
 
 builder.Services.AddScoped<ITasksRepository, TasksRepository>()
                 .AddScoped<GetForecastsHandler>();
+
+builder.Services.AddDevView(builder.Configuration);
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseDevView();
+    app.MapOpenApi();
+
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
