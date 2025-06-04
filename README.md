@@ -84,7 +84,6 @@ With DevView added, your MinimalApi project will now have two additional routes 
 ```
 
 /dev/deps - lists all services registered with the WebApi dependency injection container:
-/dev/routes - lists all mapped Minimal API endpoints:
 ```json
 [
   {
@@ -107,6 +106,76 @@ With DevView added, your MinimalApi project will now have two additional routes 
   },
   ...
 ]
+```
+
+/dev/config - lists all configuration settings available to your WebApi (with their source provider):
+```json
+{
+  "summary": {
+    "environmentName": "Development",
+    "loadedJsonFiles": [
+      "appsettings.json",
+      "appsettings.Development.json"
+    ],
+    "providers": [
+      {
+        "name": "Appsettings (appsettings.Development.json)",
+        "providedKeys": 5
+      },
+      {
+        "name": "Appsettings (appsettings.json)",
+        "providedKeys": 2
+      },
+      {
+        "name": "ChainedConfigurationProvider",
+        "providedKeys": 2
+      },
+      {
+        "name": "Environment Variable",
+        "providedKeys": 10
+      },
+      {
+        "name": "In-Memory",
+        "providedKeys": 1
+      }
+    ],
+    "effectiveUrls": [
+      "https://localhost:7211",
+      "http://localhost:5294"
+    ]
+  },
+  "configDetails": [
+    {
+      "key": "Logging:LogLevel:Default",
+      "value": "Information",
+      "source": "Appsettings (appsettings.Development.json)",
+      "isSensitive": false,
+      "valueType": "string"
+    },
+    {
+      "key": "Logging:LogLevel:Microsoft.AspNetCore",
+      "value": "Warning",
+      "source": "Appsettings (appsettings.Development.json)",
+      "isSensitive": false,
+      "valueType": "string"
+    },
+    {
+      "key": "AllowedHosts",
+      "value": "*",
+      "source": "Appsettings (appsettings.json)",
+      "isSensitive": false,
+      "valueType": "string"
+    },
+    {
+      "key": "ConnectionStrings:DefaultConnection",
+      "value": "*****",
+      "source": "Appsettings (appsettings.json)",
+      "isSensitive": true,
+      "valueType": "string"
+    },
+    ...
+  ]
+}
 ```
 
 ### Logging
