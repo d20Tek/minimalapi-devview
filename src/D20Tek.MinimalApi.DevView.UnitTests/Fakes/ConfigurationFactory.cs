@@ -39,4 +39,21 @@ internal static class ConfigurationFactory
 
         return builder.Build();
     }
+
+    public static IConfigurationRoot CreateConfigWithNoUrls()
+    {
+        var builder = new ConfigurationBuilder();
+
+        builder.AddJsonFile("appsettings.json")
+               .AddJsonFile("appsettings.Development.json")
+               .AddEnvironmentVariables()
+               .AddCommandLine([]);
+
+        builder.AddInMemoryCollection(new Dictionary<string, string?>
+        {
+            ["TestKey"] = "TestValue",
+        });
+
+        return builder.Build();
+    }
 }
