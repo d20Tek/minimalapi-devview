@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using D20Tek.MinimalApi.DevView.Common;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
@@ -10,7 +11,11 @@ public static class RoutesEndpoint
     public static IEndpointRouteBuilder MapRoutesExplorer(this IEndpointRouteBuilder endpoints, DevViewOptions options)
     {
         var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/routes", GetRoutes).WithTags("DevView");
+        endpoints.MapGet($"{basePath}/routes", GetRoutes)
+                 .WithTags("DevView")
+                 .WithName("GetDevRoutes")
+                 .Produces<IEnumerable<Dictionary<string, object?>>?>()
+                 .WithDevEndpointVisibility(options.HideDevEndpointsFromOpenApi);
 
         return endpoints;
     }

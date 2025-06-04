@@ -6,6 +6,8 @@ public class DevViewOptions
 {
     public string BasePath { get; set; } = "/dev";
 
+    public bool HideDevEndpointsFromOpenApi { get; set; } = true;
+
     public bool IncludeRequestBodies { get; set; } = false;
     
     public bool IncludeRouteMetadata { get; set; } = true;

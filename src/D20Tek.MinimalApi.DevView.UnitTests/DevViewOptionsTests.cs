@@ -15,6 +15,7 @@ public class DevViewOptionsTests
         {
             BasePath = "/foo",
             EnableLogging = true,
+            HideDevEndpointsFromOpenApi = false,
             IncludeRequestBodies = true,
             IncludeRouteDebugDetails = true,
             IncludeRouteMetadata = true,
@@ -24,6 +25,7 @@ public class DevViewOptionsTests
         // assert
         Assert.IsNotNull(options);
         Assert.AreEqual("/foo", options.BasePath);
+        Assert.IsFalse(options.HideDevEndpointsFromOpenApi);
         Assert.IsTrue(options.EnableLogging);
         Assert.IsTrue(options.IncludeRequestBodies);
         Assert.IsTrue(options.IncludeRouteDebugDetails);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using D20Tek.MinimalApi.DevView.Common;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -13,7 +14,12 @@ public static partial class InfoEndpoint
     public static IEndpointRouteBuilder MapInfoEndpoint(this IEndpointRouteBuilder endpoints, DevViewOptions options)
     {
         var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/info", GetDevInfo).WithTags("DevView");
+        endpoints.MapGet($"{basePath}/info", GetDevInfo)
+                 .WithTags("DevView")
+                 .WithName("GetDevInfo")
+                 .Produces<InfoResponse>()
+                 .WithDevEndpointVisibility(options.HideDevEndpointsFromOpenApi);
+
         return endpoints;
     }
 

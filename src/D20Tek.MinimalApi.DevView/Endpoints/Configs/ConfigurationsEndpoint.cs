@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using D20Tek.MinimalApi.DevView.Common;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Configs;
 
@@ -14,7 +15,11 @@ public static class ConfigurationsEndpoint
         DevViewOptions options)
     {
         var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/config", GetConfigInfo).WithTags("DevView");
+        endpoints.MapGet($"{basePath}/config", GetConfigInfo)
+                 .WithTags("DevView")
+                 .WithName("GetDevConfiguration")
+                 .Produces<ConfigResponse>()
+                 .WithDevEndpointVisibility(options.HideDevEndpointsFromOpenApi);
 
         return endpoints;
     }
