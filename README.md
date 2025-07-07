@@ -16,7 +16,7 @@
 Install via NuGet:
 
 ```cmd
-PM > Install-Package D20Tek.MinimalApi.DevView
+PM > Install-Package D20Tek.MinimalApi.DevView --version 1.0.4
 ```
 
 To install in the Visual Studio UI, go to the Tools menu > "Manage NuGet Packages". Then search for D20Tek.MinimalApi.DevView, and install whichever package version you require from there.
