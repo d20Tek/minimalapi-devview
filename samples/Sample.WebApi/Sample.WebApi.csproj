@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="D20Tek.Functional.AspNetCore" Version="0.9.15" />
-    <PackageReference Include="LowDb.Net" Version="1.2.2" />
-    <PackageReference Include="LowDb.Net.Repositories" Version="1.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
+    <PackageReference Include="D20Tek.Functional.AspNetCore" Version="0.9.16" />
+    <PackageReference Include="LowDb.Net" Version="1.2.3" />
+    <PackageReference Include="LowDb.Net.Repositories" Version="1.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.4.8" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.5.6" />
   </ItemGroup>
 
   <ItemGroup>
