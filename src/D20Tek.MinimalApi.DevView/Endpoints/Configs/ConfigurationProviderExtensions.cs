@@ -14,13 +14,9 @@ internal static class ConfigurationProviderExtensions
         provider switch
         {
             JsonConfigurationProvider json => _appSettings(json.Source.Path),
-
             Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider => _env,
-
             Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider => _commandLine,
-
             Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider => _inMemory,
-
             _ => provider.GetType().Name
         };
 }

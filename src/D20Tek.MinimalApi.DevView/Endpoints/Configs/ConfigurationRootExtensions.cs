@@ -36,9 +36,7 @@ internal static class ConfigurationRootExtensions
             }
         }
 
-        return entries.Values.OrderBy(e => e.Source)
-                             .ThenBy(e => e.Key)
-                             .ToList();
+        return [.. entries.Values.OrderBy(e => e.Source).ThenBy(e => e.Key)];
     }
 
     private static bool ShouldSkipEnvVariable(IConfigurationProvider provider, string key, DevViewOptions options) =>

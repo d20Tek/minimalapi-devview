@@ -68,10 +68,7 @@ public static class TaskEndpoints
 
         group.MapDelete("/{id}", async (int id, LowDbAsync<TasksDocument> db) =>
         {
-            await db.Update(x =>
-            {
-                x.Tasks.RemoveWhere(x => x.Id == id);
-            });
+            await db.Update(x => x.Tasks.RemoveWhere(x => x.Id == id));
             return TypedResults.Ok(new TaskEntity { Id = id });
         })
         .WithName("DeleteTask")

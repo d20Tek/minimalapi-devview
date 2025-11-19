@@ -23,17 +23,17 @@ public static partial class InfoEndpoint
         return endpoints;
     }
 
-    internal static IResult GetDevInfo([FromServices]IHostEnvironment env)
-    {
-        var assembly = Assembly.GetEntryAssembly();
-        var version = assembly!.GetName().Version!.ToString();
-        var startTime = Process.GetCurrentProcess().StartTime.ToUniversalTime();
+    internal static IResult GetDevInfo([FromServices] IHostEnvironment env) =>
+        Results.Json(CreateResponse(
+            env,
+            Assembly.GetEntryAssembly()!.GetName().Version!.ToString(),
+            Process.GetCurrentProcess().StartTime.ToUniversalTime()));
 
-        return Results.Json(new InfoResponse(
+    private static InfoResponse CreateResponse(IHostEnvironment env, string version, DateTime startTime) =>
+        new(
             env.ApplicationName,
             env.EnvironmentName,
             version,
             startTime,
-            (int)(DateTime.UtcNow - startTime).TotalSeconds));
-    }
+            (int)(DateTime.UtcNow - startTime).TotalSeconds);
 }

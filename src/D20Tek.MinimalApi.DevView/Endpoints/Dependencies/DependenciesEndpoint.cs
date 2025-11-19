@@ -30,21 +30,18 @@ public static partial class DependenciesEndpoint
         var query = DependencyQuery.Create(context.Request.Query);
         var deps = services.Services.Where(sd => sd.ServiceType is not null)
                                     .Filter(query)
-                                    .Select(sd => CreateDependencyInfo(sd))
+                                    .Select(sd => CreateDependencyInfo(sd, sd.GetCompositeImplementationType()))
                                     .ToArray();
 
         return Results.Json(deps);
     }
 
-    private static DependencyInfo CreateDependencyInfo(ServiceDescriptor descriptor)
-    {
-        var implementationType = descriptor.GetCompositeImplementationType();
-        return new(
+    private static DependencyInfo CreateDependencyInfo(ServiceDescriptor descriptor, Type implementationType) =>
+        new(
             descriptor.ServiceType.FullName!,
             implementationType.FullName,
             descriptor.Lifetime.ToString(),
             implementationType.Assembly.GetName().Name);
-    }
 
     private static IEnumerable<ServiceDescriptor> Filter(
         this IEnumerable<ServiceDescriptor> descriptors,

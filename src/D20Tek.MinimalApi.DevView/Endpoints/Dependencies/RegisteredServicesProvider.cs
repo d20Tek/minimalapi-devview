@@ -2,12 +2,7 @@
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
-internal class RegisteredServicesProvider : IRegisteredServicesProvider
+internal class RegisteredServicesProvider(IEnumerable<ServiceDescriptor> services) : IRegisteredServicesProvider
 {
-    public IReadOnlyList<ServiceDescriptor> Services { get; }
-
-    public RegisteredServicesProvider(IEnumerable<ServiceDescriptor> services)
-    {
-        Services = services.ToList().AsReadOnly();
-    }
+    public IReadOnlyList<ServiceDescriptor> Services { get; } = services.ToList().AsReadOnly();
 }
