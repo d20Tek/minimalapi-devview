@@ -25,7 +25,7 @@ public class RequestLoggingMiddlewareTests
         await middleware.InvokeAsync(_context);
 
         // assert
-        Assert.AreEqual(0, logger.Logs.Count);
+        Assert.IsEmpty(logger.Logs);
     }
 
     [TestMethod]
@@ -41,10 +41,10 @@ public class RequestLoggingMiddlewareTests
         await middleware.InvokeAsync(context);
 
         // assert
-        Assert.AreEqual(2, logger.Logs.Count);
+        Assert.HasCount(2, logger.Logs);
         Assert.IsTrue(logger.Logs.All(x => x.StartsWith("[Information]")));
         Assert.AreEqual("[Information] --> GET /api/test", logger.Logs[0]);
-        Assert.IsTrue(logger.Logs[1].StartsWith("[Information] <-- 200"));
+        Assert.StartsWith("[Information] <-- 200", logger.Logs[1]);
     }
 
     [TestMethod]
@@ -59,7 +59,7 @@ public class RequestLoggingMiddlewareTests
         await middleware.InvokeAsync(_context);
 
         // assert
-        Assert.AreEqual(2, logger.Logs.Count);
+        Assert.HasCount(2, logger.Logs);
         Assert.IsTrue(logger.Logs.All(x => x.StartsWith("[Debug]")));
     }
 }

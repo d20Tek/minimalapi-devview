@@ -53,7 +53,7 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.IsTrue(result.Count() >= 80);
+        Assert.IsGreaterThanOrEqualTo(80, result.Count());
         Assert.IsTrue(result.Any(x => x.ServiceType == typeof(ITestType)));
     }
 
@@ -70,7 +70,7 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.IsTrue(result.Count() >= 100);
+        Assert.IsGreaterThanOrEqualTo(100, result.Count());
     }
 
     [TestMethod]

@@ -43,7 +43,7 @@ public class ConfigResponseTests
         Assert.AreEqual("Test", result.Key);
         Assert.AreEqual("X1", result.Value);
         Assert.AreEqual("ConnectionString", result.Source);
-        Assert.AreEqual(true, result.IsSensitive);
+        Assert.IsTrue(result.IsSensitive);
         Assert.AreEqual("string", result.ValueType);
     }
 
@@ -64,9 +64,9 @@ public class ConfigResponseTests
 
         // assert
         Assert.AreEqual("Dev", result.EnvironmentName);
-        Assert.AreEqual(2, result.LoadedJsonFiles.Length);
-        Assert.AreEqual(3, result.Providers.Length);
-        Assert.AreEqual(2, result.EffectiveUrls.Length);
+        Assert.HasCount(2, result.LoadedJsonFiles);
+        Assert.HasCount(3, result.Providers);
+        Assert.HasCount(2, result.EffectiveUrls);
     }
 
     [TestMethod]
@@ -97,6 +97,6 @@ public class ConfigResponseTests
         // assert
         Assert.AreEqual(summary, result.Summary);
         Assert.AreEqual(entries, result.ConfigDetails);
-        Assert.AreEqual(3, result.ConfigDetails.Count);
+        Assert.HasCount(3, result.ConfigDetails);
     }
 }

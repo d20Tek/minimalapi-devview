@@ -32,12 +32,12 @@ public class ConfigurationsEndpointTests
         Assert.IsNotNull(jsonResult);
         var response = jsonResult.Value as ConfigResponse;
         Assert.IsNotNull(response);
-        Assert.AreEqual(4, response.Summary.Providers.Length);
-        Assert.AreEqual(2, response.Summary.LoadedJsonFiles.Length);
+        Assert.HasCount(4, response.Summary.Providers);
+        Assert.HasCount(2, response.Summary.LoadedJsonFiles);
         Assert.IsTrue(response.Summary.LoadedJsonFiles.Any(x => x == "appsettings.json"));
         Assert.AreEqual("Development", response.Summary.EnvironmentName);
-        Assert.AreEqual(2, response.Summary.EffectiveUrls.Length);
-        Assert.IsTrue(response.ConfigDetails.Count >= 10);
+        Assert.HasCount(2, response.Summary.EffectiveUrls);
+        Assert.IsGreaterThanOrEqualTo(10, response.ConfigDetails.Count);
         Assert.IsTrue(response.ConfigDetails.Any(x => x.Key == "ConnectionStrings:DefaultConnection" && x.Value == "*****"));
         Assert.IsTrue(response.ConfigDetails.Any(x => x.Key == "TestKey"));
     }
@@ -58,10 +58,10 @@ public class ConfigurationsEndpointTests
         Assert.IsNotNull(jsonResult);
         var response = jsonResult.Value as ConfigResponse;
         Assert.IsNotNull(response);
-        Assert.AreEqual(4, response.Summary.Providers.Length);
-        Assert.AreEqual(2, response.Summary.LoadedJsonFiles.Length);
-        Assert.AreEqual(2, response.Summary.EffectiveUrls.Length);
-        Assert.IsTrue(response.ConfigDetails.Count >= 60);
+        Assert.HasCount(4, response.Summary.Providers);
+        Assert.HasCount(2, response.Summary.LoadedJsonFiles);
+        Assert.HasCount(2, response.Summary.EffectiveUrls);
+        Assert.IsGreaterThanOrEqualTo(60, response.ConfigDetails.Count);
         Assert.IsTrue(response.ConfigDetails.Any(x => x.Key == "ConnectionStrings:DefaultConnection"));
         Assert.IsFalse(response.ConfigDetails.Any(x => x.Key == "ConnectionStrings:DefaultConnection" && x.Value == "*****"));
     }
@@ -86,12 +86,12 @@ public class ConfigurationsEndpointTests
         Assert.IsNotNull(jsonResult);
         var response = jsonResult.Value as ConfigResponse;
         Assert.IsNotNull(response);
-        Assert.AreEqual(1, response.Summary.Providers.Length);
-        Assert.AreEqual(2, response.Summary.LoadedJsonFiles.Length);
+        Assert.HasCount(1, response.Summary.Providers);
+        Assert.HasCount(2, response.Summary.LoadedJsonFiles);
         Assert.IsTrue(response.Summary.LoadedJsonFiles.Any(x => x == "appsettings.json"));
         Assert.AreEqual("Development", response.Summary.EnvironmentName);
-        Assert.AreEqual(2, response.Summary.EffectiveUrls.Length);
-        Assert.AreEqual(3, response.ConfigDetails.Count);
+        Assert.HasCount(2, response.Summary.EffectiveUrls);
+        Assert.HasCount(3, response.ConfigDetails);
         Assert.IsFalse(response.ConfigDetails.Any(x => x.Key == "ConnectionStrings:DefaultConnection"));
         Assert.IsFalse(response.ConfigDetails.Any(x => x.Key == "TestKey"));
         Assert.IsTrue(response.ConfigDetails.Any(x => x.Key == "DevView:LogLevel"));
@@ -112,10 +112,10 @@ public class ConfigurationsEndpointTests
         Assert.IsNotNull(jsonResult);
         var response = jsonResult.Value as ConfigResponse;
         Assert.IsNotNull(response);
-        Assert.AreEqual(5, response.Summary.Providers.Length);
-        Assert.AreEqual(2, response.Summary.LoadedJsonFiles.Length);
-        Assert.AreEqual(2, response.Summary.EffectiveUrls.Length);
-        Assert.IsTrue(response.ConfigDetails.Count >= 12);
+        Assert.HasCount(5, response.Summary.Providers);
+        Assert.HasCount(2, response.Summary.LoadedJsonFiles);
+        Assert.HasCount(2, response.Summary.EffectiveUrls);
+        Assert.IsGreaterThanOrEqualTo(12, response.ConfigDetails.Count);
         Assert.IsTrue(response.ConfigDetails.Any(x => x.Key == "arg1"));
         Assert.IsTrue(response.ConfigDetails.Any(x => x.Key == "arg2"));
     }
@@ -135,9 +135,9 @@ public class ConfigurationsEndpointTests
         Assert.IsNotNull(jsonResult);
         var response = jsonResult.Value as ConfigResponse;
         Assert.IsNotNull(response);
-        Assert.AreEqual(4, response.Summary.Providers.Length);
-        Assert.AreEqual(2, response.Summary.LoadedJsonFiles.Length);
-        Assert.AreEqual(0, response.Summary.EffectiveUrls.Length);
+        Assert.HasCount(4, response.Summary.Providers);
+        Assert.HasCount(2, response.Summary.LoadedJsonFiles);
+        Assert.IsEmpty(response.Summary.EffectiveUrls);
     }
 
     [TestMethod]

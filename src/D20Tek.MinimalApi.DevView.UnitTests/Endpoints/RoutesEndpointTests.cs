@@ -38,7 +38,7 @@ public sealed class RoutesEndpointTests
         Assert.AreEqual("/hello", endpointDict["Pattern"]);
         Assert.AreEqual("<CreateRouteEndpoint>b__1_0", endpointDict["Handler"]);
         var produces = endpointDict["Produces"] as string[];
-        Assert.AreEqual(1, produces!.Length);
+        Assert.HasCount(1, produces!);
         CollectionAssert.Contains(
             produces,
             "StatusCode: 200, ContentTypes: application/json, Type: D20Tek.MinimalApi.DevView.UnitTests.Endpoints.RoutesEndpointTests+TestResponse");
@@ -71,7 +71,7 @@ public sealed class RoutesEndpointTests
         Assert.AreEqual("/hello", endpointDict["Pattern"]);
         Assert.AreEqual("<CreateRouteEndpoint>b__1_0", endpointDict["Handler"]);
         var produces = endpointDict["Produces"] as string[];
-        Assert.AreEqual(1, produces!.Length);
+        Assert.HasCount(1, produces!);
         CollectionAssert.Contains(
             produces,
             "StatusCode: 200, ContentTypes: application/json, Type: D20Tek.MinimalApi.DevView.UnitTests.Endpoints.RoutesEndpointTests+TestResponse");
@@ -215,7 +215,7 @@ public sealed class RoutesEndpointTests
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var produces = endpointDict["Produces"] as string[];
-        Assert.AreEqual(1, produces!.Length);
+        Assert.HasCount(1, produces!);
         CollectionAssert.Contains(
             produces,
             "StatusCode: 200, ContentTypes: application/json, Type: Microsoft.AspNetCore.Http.IResult");
@@ -244,7 +244,7 @@ public sealed class RoutesEndpointTests
         Assert.IsNotNull(jsonResult);
         var endpointDict = jsonResult.Value!.First();
         var produces = endpointDict["Produces"] as string[];
-        Assert.AreEqual(1, produces!.Length);
+        Assert.HasCount(1, produces!);
         CollectionAssert.Contains(
             produces,
             "StatusCode: 200, ContentTypes: application/json, Type: D20Tek.MinimalApi.DevView.UnitTests.Endpoints.RoutesEndpointTests+TestResponse");

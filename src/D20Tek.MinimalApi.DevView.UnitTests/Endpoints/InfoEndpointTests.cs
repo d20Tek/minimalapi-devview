@@ -25,7 +25,7 @@ public class InfoEndpointTests
         Assert.AreEqual("Test Host", response.AppName);
         Assert.AreEqual("15.0.0.0", response.Version);
         Assert.IsTrue(response.StartTime < DateTime.UtcNow);
-        Assert.IsTrue(response.UptimeSeconds >= 0);
+        Assert.IsGreaterThanOrEqualTo(0, response.UptimeSeconds);
     }
 
     [TestMethod]
