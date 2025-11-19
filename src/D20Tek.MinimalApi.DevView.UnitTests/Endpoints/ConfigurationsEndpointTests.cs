@@ -3,10 +3,8 @@ using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using System.Diagnostics.CodeAnalysis;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 
@@ -156,27 +154,11 @@ public class ConfigurationsEndpointTests
         Assert.IsNull(jsonResult.Value);
     }
 
-    private static HttpContext CreateContext(IQueryCollection? query = null)
+    private static DefaultHttpContext CreateContext(IQueryCollection? query = null)
     {
         var context = new DefaultHttpContext();
         context.Request.Query = query ?? new QueryCollection();
 
         return context;
-    }
-
-    [ExcludeFromCodeCoverage]
-    internal class EmptyConfiguration : IConfiguration
-    {
-        public string? this[string key] 
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public IEnumerable<IConfigurationSection> GetChildren() => throw new NotImplementedException();
-
-        public IChangeToken GetReloadToken() => throw new NotImplementedException();
-
-        public IConfigurationSection GetSection(string key) => throw new NotImplementedException();
     }
 }

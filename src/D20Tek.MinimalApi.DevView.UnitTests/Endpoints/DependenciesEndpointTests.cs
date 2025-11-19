@@ -76,7 +76,7 @@ public class DependenciesEndpointTests
         Assert.IsTrue(dependencies.Any(d => d.ServiceType == typeof(IRegisteredServicesProvider).FullName));
     }
 
-    private static HttpContext CreateContext(WebApplication app, IQueryCollection? query = null)
+    private static DefaultHttpContext CreateContext(WebApplication app, IQueryCollection? query = null)
     {
         var context = new DefaultHttpContext
         {

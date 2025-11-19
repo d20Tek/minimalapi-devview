@@ -6,14 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
-internal class FakeEndpointDataSource : EndpointDataSource
+internal class FakeEndpointDataSource(IEnumerable<Endpoint> endpoints) : EndpointDataSource
 {
-    private readonly IReadOnlyList<Endpoint> _endpoints;
-
-    public FakeEndpointDataSource(IEnumerable<Endpoint> endpoints)
-    {
-        _endpoints = endpoints.ToList();
-    }
+    private readonly IReadOnlyList<Endpoint> _endpoints = [.. endpoints];
 
     public override IReadOnlyList<Endpoint> Endpoints => _endpoints;
 

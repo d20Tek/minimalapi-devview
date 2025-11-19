@@ -11,15 +11,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Pattern", "/v1/test-endpoint" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Pattern", "/v2/test-endpoint" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Pattern", "/v3/test-endpoint" }
             }
@@ -42,15 +42,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Pattern", "/v1/test-endpoint" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Pattern", "/v2/test-endpoint" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Pattern", "/v3/test-endpoint" }
             }
@@ -72,15 +72,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Method", new string[] { "GET" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Method", new string[] { "POST" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Method", new string[] { "GET" } }
             }
@@ -103,15 +103,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Method", new string[] { "GET" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Method", new string[] { "POST" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Method", new string[] { "GET" } }
             }
@@ -133,15 +133,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint1" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Func2" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint3" }
             }
@@ -164,15 +164,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint1" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Func2" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint3" }
             }
@@ -194,15 +194,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "foo" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "foo", "bar" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "baz" } }
             }
@@ -225,15 +225,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "foo" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "foo", "bar" } }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "baz" } }
             }
@@ -255,17 +255,17 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "foo" } },
                 { "Name", null }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "foo", "bar" } },
                 { "Name", null }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", new string[] { "baz" } },
                 { "Name", null }
@@ -288,17 +288,17 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", null },
                 { "Name", "test1" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", null },
                 { "Name", "test2" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Tags", null },
                 { "Name", "test3" }
@@ -321,15 +321,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint1" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Func2" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint3" }
             }
@@ -351,15 +351,15 @@ public class RouteEndpointQueryTests
         // arrange
         var metadata = new List<Dictionary<string, object?>>()
         {
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint1" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Func2" }
             },
-            new Dictionary<string, object?>()
+            new()
             {
                 { "Name", "Endpoint3" }
             }

@@ -5,32 +5,25 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
-internal class FakeHostEnvironment : IHostEnvironment, IWebHostEnvironment
+[ExcludeFromCodeCoverage]
+internal class FakeHostEnvironment(
+    string environmentName = "Development",
+    string applicationName = "Test Host",
+    string contentRootPath = "/www_root") : IHostEnvironment, IWebHostEnvironment
 {
-    public string EnvironmentName { get; set; }
+    public string EnvironmentName { get; set; } = environmentName;
 
-    public string ApplicationName { get; set; }
+    public string ApplicationName { get; set; } = applicationName;
 
     [ExcludeFromCodeCoverage]
-    public string ContentRootPath { get; set; }
+    public string ContentRootPath { get; set; } = contentRootPath;
 
     [ExcludeFromCodeCoverage]
     public IFileProvider ContentRootFileProvider { get; set; } = null!;
 
     [ExcludeFromCodeCoverage]
-    public string WebRootPath { get; set; }
+    public string WebRootPath { get; set; } = contentRootPath;
 
     [ExcludeFromCodeCoverage]
     public IFileProvider WebRootFileProvider { get; set; } = null!;
-
-    public FakeHostEnvironment(
-        string environmentName = "Development",
-        string applicationName = "Test Host",
-        string contentRootPath = "/www_root")
-    {
-        EnvironmentName = environmentName;
-        ApplicationName = applicationName;
-        ContentRootPath = contentRootPath;
-        WebRootPath = contentRootPath;
-    }
 }

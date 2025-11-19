@@ -36,7 +36,7 @@ public class ConfigurationProviderExtensionsTests
         var result = provider.GetFriendlyName();
 
         // assert
-        StringAssert.Contains(result, "secrets.json");
+        Assert.Contains("secrets.json", result);
     }
 
     [TestMethod]
