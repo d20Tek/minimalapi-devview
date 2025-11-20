@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using D20Tek.MinimalApi.DevView.Common;
+using Microsoft.AspNetCore.Http;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Routes;
 
@@ -33,35 +34,20 @@ public class RouteEndpointQuery
         };
     }
 
-    public IEnumerable<Dictionary<string, object?>> ApplyFilters(IEnumerable<Dictionary<string, object?>> endpoints)
-    {
-        var filtered = endpoints;
-        if (string.IsNullOrWhiteSpace(Route) is false)
-        {
-            filtered = filtered.Where(
-                d => DictionaryItemAsString(d, _patternFilter).Contains(Route, StringComparison.OrdinalIgnoreCase));
-        }
-
-        if (string.IsNullOrWhiteSpace(Method) is false)
-        {
-            filtered = filtered.Where(
-                d => DictionaryItemAsStringArray(d, _methodFilter).Contains(Method.ToUpper()));
-        }
-
-        if (string.IsNullOrWhiteSpace(EndpointName) is false)
-        {
-            filtered = filtered.Where(
-                d => DictionaryItemAsString(d, _nameFilter).Contains(EndpointName, StringComparison.OrdinalIgnoreCase));
-        }
-
-        if (string.IsNullOrWhiteSpace(Tag) is false)
-        {
-            filtered = filtered.Where(
+    public IEnumerable<Dictionary<string, object?>> ApplyFilters(IEnumerable<Dictionary<string, object?>> endpoints) =>
+        endpoints
+            .ApplyWhereIf(
+                Route,
+                d => DictionaryItemAsString(d, _patternFilter).Contains(Route!, StringComparison.OrdinalIgnoreCase))
+            .ApplyWhereIf(
+                Method,
+                d => DictionaryItemAsStringArray(d, _methodFilter).Contains(Method!.ToUpper()))
+            .ApplyWhereIf(
+                EndpointName,
+                d => DictionaryItemAsString(d, _nameFilter).Contains(EndpointName!, StringComparison.OrdinalIgnoreCase))
+            .ApplyWhereIf(
+                Tag,
                 d => DictionaryItemAsStringArray(d, _tagsFilter).Contains(Tag));
-        }
-
-        return filtered;
-    }
 
     private static string DictionaryItemAsString(Dictionary<string, object?> dict, string key) =>
         dict.TryGetValue(key, out var value) && value is string result ? result : string.Empty;

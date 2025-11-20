@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using D20Tek.MinimalApi.DevView.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
@@ -30,36 +31,21 @@ public sealed class DependencyQuery
         };
     }
 
-    public IEnumerable<ServiceDescriptor> ApplyFilters(IEnumerable<ServiceDescriptor> descriptors)
-    {
-        var filtered = descriptors;
-        if (string.IsNullOrWhiteSpace(Implementation) is false)
-        {
-            filtered = filtered.Where(
-                sd => sd.GetCompositeImplementationType()
-                        .FullName!
-                        .Contains(Implementation, StringComparison.OrdinalIgnoreCase) is true);
-        }
-
-        if (Enum.TryParse<ServiceLifetime>(Lifetime, true, out var lifetime))
-        {
-            filtered = filtered.Where(sd => sd.Lifetime == lifetime);
-        }
-
-        if (string.IsNullOrWhiteSpace(ServiceType) is false)
-        {
-            filtered = filtered.Where(sd => sd.ServiceType.FullName!
-                                              .Contains(ServiceType, StringComparison.OrdinalIgnoreCase) is true);
-        }
-
-        if (string.IsNullOrWhiteSpace(Assembly) is false)
-        {
-            filtered = filtered.Where(
-                sd => sd.GetCompositeImplementationType()
-                        .Assembly.GetName().Name!
-                        .Contains(Assembly, StringComparison.OrdinalIgnoreCase) is true);
-        }
-
-        return filtered;
-    }
+    public IEnumerable<ServiceDescriptor> ApplyFilters(IEnumerable<ServiceDescriptor> descriptors) =>
+        descriptors.ApplyWhereIf(
+                       Implementation,
+                       sd => sd.GetCompositeImplementationType().FullName!
+                               .Contains(Implementation!, StringComparison.OrdinalIgnoreCase))
+                   .ApplyWhereIfEnum<ServiceDescriptor, ServiceLifetime>(
+                       Lifetime,
+                       (sd, lifetime) => sd.Lifetime == lifetime)
+                   .ApplyWhereIf(
+                       ServiceType,
+                       sd => sd.ServiceType.FullName!
+                               .Contains(ServiceType!, StringComparison.OrdinalIgnoreCase))
+                   .ApplyWhereIf(
+                       Assembly,
+                       sd => sd.GetCompositeImplementationType()
+                               .Assembly.GetName().Name!
+                               .Contains(Assembly!, StringComparison.OrdinalIgnoreCase));
 }

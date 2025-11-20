@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using D20Tek.MinimalApi.DevView.Common;
+using Microsoft.AspNetCore.Http;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Configs;
 
@@ -25,26 +26,8 @@ public sealed class ConfigQuery
         };
     }
 
-    public IEnumerable<ConfigInfo> ApplyFilters(IEnumerable<ConfigInfo> configs)
-    {
-        var filtered = configs;
-
-        if (string.IsNullOrWhiteSpace(KeyName) is false)
-        {
-            filtered = filtered.Where(c => c.Key!.Contains(KeyName, StringComparison.OrdinalIgnoreCase) is true);
-        }
-
-        if (string.IsNullOrWhiteSpace(Source) is false)
-        {
-            filtered = filtered.Where(c => c.Source!.Contains(Source, StringComparison.OrdinalIgnoreCase) is true);
-        }
-
-        if (string.IsNullOrWhiteSpace(ValueType) is false)
-        {
-            filtered = filtered.Where(c =>
-                c.ValueType!.Contains(ValueType, StringComparison.OrdinalIgnoreCase) is true);
-        }
-
-        return filtered;
-    }
+    public IEnumerable<ConfigInfo> ApplyFilters(IEnumerable<ConfigInfo> configs) =>
+        configs.ApplyWhereIf(KeyName, c => c.Key!.Contains(KeyName!, StringComparison.OrdinalIgnoreCase))
+               .ApplyWhereIf(Source, c => c.Source!.Contains(Source!, StringComparison.OrdinalIgnoreCase))
+               .ApplyWhereIf(ValueType, c => c.ValueType!.Contains(ValueType!, StringComparison.OrdinalIgnoreCase));
 }
