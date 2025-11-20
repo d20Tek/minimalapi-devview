@@ -5,6 +5,11 @@ namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
 public sealed class DependencyQuery
 {
+    private const string _implementationKey = "implementation";
+    private const string _lifetimeKey = "lifetime";
+    private const string _serviceTypeKey = "serviceType";
+    private const string _assemblyKey = "assembly";
+
     public string? Implementation { get; init; }
 
     public string? Lifetime { get; init; }
@@ -18,10 +23,10 @@ public sealed class DependencyQuery
         ArgumentNullException.ThrowIfNull(query, nameof(query));
         return new()
         {
-            Implementation = query["implementation"],
-            Lifetime = query["lifetime"],
-            ServiceType = query["serviceType"],
-            Assembly = query["assembly"]
+            Implementation = query[_implementationKey],
+            Lifetime = query[_lifetimeKey],
+            ServiceType = query[_serviceTypeKey],
+            Assembly = query[_assemblyKey]
         };
     }
 

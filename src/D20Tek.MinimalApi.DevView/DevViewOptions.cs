@@ -4,7 +4,9 @@ namespace D20Tek.MinimalApi.DevView;
 
 public class DevViewOptions
 {
-    public string BasePath { get; set; } = "/dev";
+    private const string _defaultPath = "/dev";
+
+    public string BasePath { get; set; } = _defaultPath;
 
     public bool HideDevEndpointsFromOpenApi { get; set; } = true;
 

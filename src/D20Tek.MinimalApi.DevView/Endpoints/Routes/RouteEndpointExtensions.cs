@@ -5,6 +5,14 @@ namespace D20Tek.MinimalApi.DevView.Endpoints.Routes;
 internal static partial class RouteEndpointExtensions
 {
     private const string _noData = "none";
+    private const string _methodKey = "Method";
+    private const string _patternKey = "Pattern";
+    private const string _tagsKey = "Tags";
+    private const string _handlerKey = "Handler";
+    private const string _nameKey = "Name";
+    private const string _producesKey = "Produces";
+    private const string _metadataTypesKey = "MetadataTypes";
+    private static string FormatMetadataType(string name, object value) => $"Type: {name}, Value: {value}";
 
     public static Dictionary<string, object?> InspectEndpoint(this RouteEndpoint endpoint, DevViewOptions options)
     {
@@ -13,31 +21,29 @@ internal static partial class RouteEndpointExtensions
 
         var routeInfo = new Dictionary<string, object?>
         {
-            ["Method"] = endpoint.GetHttpMethods(),
-            ["Pattern"] = routePattern
+            [_methodKey] = endpoint.GetHttpMethods(),
+            [_patternKey] = routePattern
         };
 
         if (options.IncludeRouteMetadata)
         {
-            routeInfo["Tags"] = endpoint.GetTags();
-            routeInfo["Handler"] = endpoint.RequestDelegate!.Method.Name;
-            routeInfo["Name"] = endpoint.GetEndpointName();
+            routeInfo[_tagsKey] = endpoint.GetTags();
+            routeInfo[_handlerKey] = endpoint.RequestDelegate!.Method.Name;
+            routeInfo[_nameKey] = endpoint.GetEndpointName();
 
             var produces = endpoint.GetProducesResponses();
             if (produces.Length > 0)
             {
-                routeInfo["Produces"] = produces;
+                routeInfo[_producesKey] = produces;
             }
         }
 
         if (options.IncludeRouteDebugDetails)
         {
-            routeInfo["MetadataTypes"] = endpoint.Metadata.Select(GetTypeMetadata)
-                                                          .ToArray();
+            routeInfo[_metadataTypesKey] = endpoint.Metadata.Select(x => FormatMetadataType(x.GetType().Name, x))
+                                                            .ToArray();
         }
 
         return routeInfo;
     }
-
-    private static string GetTypeMetadata(object t) => $"Type: {t.GetType().Name}, Value:{t}";
 }

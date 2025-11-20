@@ -10,10 +10,9 @@ public static class RoutesEndpoint
 {
     public static IEndpointRouteBuilder MapRoutesExplorer(this IEndpointRouteBuilder endpoints, DevViewOptions options)
     {
-        var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/routes", GetRoutes)
-                 .WithTags("DevView")
-                 .WithName("GetDevRoutes")
+        endpoints.MapGet(Constants.Routes.EndpointPattern(options.BasePath), GetRoutes)
+                 .WithTags(Constants.EndpointTags)
+                 .WithName(Constants.Routes.EndpointName)
                  .Produces<IEnumerable<Dictionary<string, object?>>?>()
                  .WithDevEndpointVisibility(options.HideDevEndpointsFromOpenApi);
 

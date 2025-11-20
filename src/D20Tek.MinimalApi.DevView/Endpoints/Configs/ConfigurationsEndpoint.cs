@@ -14,10 +14,9 @@ public static class ConfigurationsEndpoint
         this IEndpointRouteBuilder endpoints,
         DevViewOptions options)
     {
-        var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/config", GetConfigInfo)
-                 .WithTags("DevView")
-                 .WithName("GetDevConfiguration")
+        endpoints.MapGet(Constants.Configurations.EndpointPattern(options.BasePath), GetConfigInfo)
+                 .WithTags(Constants.EndpointTags)
+                 .WithName(Constants.Configurations.EndpointName)
                  .Produces<ConfigResponse>()
                  .WithDevEndpointVisibility(options.HideDevEndpointsFromOpenApi);
 

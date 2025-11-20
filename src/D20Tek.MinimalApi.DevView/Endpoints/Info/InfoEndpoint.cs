@@ -13,10 +13,9 @@ public static partial class InfoEndpoint
 {
     public static IEndpointRouteBuilder MapInfoEndpoint(this IEndpointRouteBuilder endpoints, DevViewOptions options)
     {
-        var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/info", GetDevInfo)
-                 .WithTags("DevView")
-                 .WithName("GetDevInfo")
+        endpoints.MapGet(Constants.Info.EndpointPattern(options.BasePath), GetDevInfo)
+                 .WithTags(Constants.EndpointTags)
+                 .WithName(Constants.Info.EndpointName)
                  .Produces<InfoResponse>()
                  .WithDevEndpointVisibility(options.HideDevEndpointsFromOpenApi);
 

@@ -12,10 +12,9 @@ public static partial class DependenciesEndpoint
         this IEndpointRouteBuilder endpoints,
         DevViewOptions options)
     {
-        var basePath = options.BasePath;
-        endpoints.MapGet($"{basePath}/deps", GetDependencyInfo)
-                 .WithTags("DevView")
-                 .WithName("GetDevDependencies")
+        endpoints.MapGet(Constants.Dependencies.EndpointPattern(options.BasePath), GetDependencyInfo)
+                 .WithTags(Constants.EndpointTags)
+                 .WithName(Constants.Dependencies.EndpointName)
                  .Produces<DependencyInfo[]>()
                  .WithDevEndpointVisibility(options.HideDevEndpointsFromOpenApi);
 

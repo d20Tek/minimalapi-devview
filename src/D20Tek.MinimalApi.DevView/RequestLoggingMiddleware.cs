@@ -11,6 +11,9 @@ public class RequestLoggingMiddleware(
     IOptions<DevViewOptions> options)
 {
     private const double _millisec = 1000.0;
+    private const string _logEntry = "--> {method} {path}";
+    private const string _logExit = "<-- {status} ({duration}ms)";
+
     private readonly RequestDelegate _next = next;
     private readonly ILogger<RequestLoggingMiddleware> _logger = logger;
     private readonly DevViewOptions _options = options.Value;
@@ -24,11 +27,11 @@ public class RequestLoggingMiddleware(
         }
 
         var start = Stopwatch.GetTimestamp();
-        _logger.Log(_options.LogLevel, "--> {method} {path}", context.Request.Method, context.Request.Path);
+        _logger.Log(_options.LogLevel, _logEntry, context.Request.Method, context.Request.Path);
 
         await _next(context);
 
         var elapsed = (Stopwatch.GetTimestamp() - start) * _millisec / Stopwatch.Frequency;
-        _logger.Log(_options.LogLevel, "<-- {status} ({duration}ms)", context.Response.StatusCode, elapsed);
+        _logger.Log(_options.LogLevel, _logExit, context.Response.StatusCode, elapsed);
     }
 }
