@@ -6,7 +6,7 @@ namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 public class ConfigResponseTests
 {
     [TestMethod]
-    public void ProviderInfo_Creation_ReturnsExpectedValues()
+    public void ProviderInfo_WithUpdate_ReturnsExpectedValues()
     {
         // arrange
         var pi = new ProviderInfo("", 0);
@@ -24,7 +24,7 @@ public class ConfigResponseTests
     }
 
     [TestMethod]
-    public void ConfigInfo_Creation_ReturnsExpectedValues()
+    public void ConfigInfo_WithUpdate_ReturnsExpectedValues()
     {
         // arrange
         var ci = new ConfigInfo("", null, "", false, null);
@@ -48,7 +48,7 @@ public class ConfigResponseTests
     }
 
     [TestMethod]
-    public void ConfigSummary_Creation_ReturnsExpectedValues()
+    public void ConfigSummary_WithUpdate_ReturnsExpectedValues()
     {
         // arrange
         var cs = new ConfigSummary("", [], [], []);
@@ -70,7 +70,7 @@ public class ConfigResponseTests
     }
 
     [TestMethod]
-    public void ConfigResponse_Creation_ReturnsExpectedValues()
+    public void ConfigResponse_WithUpdate_ReturnsExpectedValues()
     {
         // arrange
         var response = new ConfigResponse(new ConfigSummary("Dev", [], [], []), []);

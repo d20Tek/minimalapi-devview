@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Primitives;
 using System.Diagnostics.CodeAnalysis;
 
-namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
+namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
 [ExcludeFromCodeCoverage]
 internal class EmptyConfiguration : IConfiguration

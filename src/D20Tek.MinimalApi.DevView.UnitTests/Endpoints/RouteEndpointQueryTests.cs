@@ -9,22 +9,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithRoute_ReturnsFilteredList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Pattern", "/v1/test-endpoint" }
-            },
-            new()
-            {
-                { "Pattern", "/v2/test-endpoint" }
-            },
-            new()
-            {
-                { "Pattern", "/v3/test-endpoint" }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithRoute();
         var query = new RouteEndpointQuery { Route = "v2" };
 
         // act
@@ -40,22 +25,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithFakeRoute_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Pattern", "/v1/test-endpoint" }
-            },
-            new()
-            {
-                { "Pattern", "/v2/test-endpoint" }
-            },
-            new()
-            {
-                { "Pattern", "/v3/test-endpoint" }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithRoute();
         var query = new RouteEndpointQuery { Route = "bogus" };
 
         // act
@@ -70,22 +40,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithMethod_ReturnsFilteredList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Method", new string[] { "GET" } }
-            },
-            new()
-            {
-                { "Method", new string[] { "POST" } }
-            },
-            new()
-            {
-                { "Method", new string[] { "GET" } }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithMethod();
         var query = new RouteEndpointQuery { Method = "GET" };
 
         // act
@@ -101,22 +56,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithFakeMethod_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Method", new string[] { "GET" } }
-            },
-            new()
-            {
-                { "Method", new string[] { "POST" } }
-            },
-            new()
-            {
-                { "Method", new string[] { "GET" } }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithMethod();
         var query = new RouteEndpointQuery { Method = "delete" };
 
         // act
@@ -131,22 +71,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithName_ReturnsFilteredList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Name", "Endpoint1" }
-            },
-            new()
-            {
-                { "Name", "Func2" }
-            },
-            new()
-            {
-                { "Name", "Endpoint3" }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithName();
         var query = new RouteEndpointQuery { EndpointName = "Endpoint" };
 
         // act
@@ -162,22 +87,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithFakeName_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Name", "Endpoint1" }
-            },
-            new()
-            {
-                { "Name", "Func2" }
-            },
-            new()
-            {
-                { "Name", "Endpoint3" }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithName();
         var query = new RouteEndpointQuery { EndpointName = "foo" };
 
         // act
@@ -192,22 +102,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithTag_ReturnsFilteredList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Tags", new string[] { "foo" } }
-            },
-            new()
-            {
-                { "Tags", new string[] { "foo", "bar" } }
-            },
-            new()
-            {
-                { "Tags", new string[] { "baz" } }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithTags();
         var query = new RouteEndpointQuery { Tag = "foo" };
 
         // act
@@ -223,22 +118,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithFakeTag_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Tags", new string[] { "foo" } }
-            },
-            new()
-            {
-                { "Tags", new string[] { "foo", "bar" } }
-            },
-            new()
-            {
-                { "Tags", new string[] { "baz" } }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithTags();
         var query = new RouteEndpointQuery { Tag = "none" };
 
         // act
@@ -253,25 +133,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithMissingStringResult_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Tags", new string[] { "foo" } },
-                { "Name", null }
-            },
-            new()
-            {
-                { "Tags", new string[] { "foo", "bar" } },
-                { "Name", null }
-            },
-            new()
-            {
-                { "Tags", new string[] { "baz" } },
-                { "Name", null }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithNullName();
         var query = new RouteEndpointQuery { EndpointName = "none" };
 
         // act
@@ -286,25 +148,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithMissingStringArrayResult_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Tags", null },
-                { "Name", "test1" }
-            },
-            new()
-            {
-                { "Tags", null },
-                { "Name", "test2" }
-            },
-            new()
-            {
-                { "Tags", null },
-                { "Name", "test3" }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithNullTags();
         var query = new RouteEndpointQuery { Tag = "none" };
 
         // act
@@ -319,22 +163,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithMissingKeyOfList_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Name", "Endpoint1" }
-            },
-            new()
-            {
-                { "Name", "Func2" }
-            },
-            new()
-            {
-                { "Name", "Endpoint3" }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithName();
         var query = new RouteEndpointQuery { Tag = "foo" };
 
         // act
@@ -349,22 +178,7 @@ public class RouteEndpointQueryTests
     public void ApplyFilters_WithMissingKeyOfString_ReturnsEmptyList()
     {
         // arrange
-        var metadata = new List<Dictionary<string, object?>>()
-        {
-            new()
-            {
-                { "Name", "Endpoint1" }
-            },
-            new()
-            {
-                { "Name", "Func2" }
-            },
-            new()
-            {
-                { "Name", "Endpoint3" }
-            }
-        };
-
+        var metadata = TestRouteEndpointFactory.CreateWithName();
         var query = new RouteEndpointQuery { Route = "foo" };
 
         // act

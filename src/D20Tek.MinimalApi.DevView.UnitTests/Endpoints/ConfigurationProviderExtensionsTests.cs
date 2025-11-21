@@ -4,13 +4,11 @@ using Microsoft.Extensions.Configuration.CommandLine;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Configuration.Memory;
-using Microsoft.Extensions.Primitives;
-using System.Diagnostics.CodeAnalysis;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 
 [TestClass]
-public class ConfigurationProviderExtensionsTests
+public partial class ConfigurationProviderExtensionsTests
 {
     [TestMethod]
     public void GetFriendlyName_WithJsonFile_ReturnsAppSettings()
@@ -89,20 +87,5 @@ public class ConfigurationProviderExtensionsTests
 
         // assert
         Assert.AreEqual("TestProvider", result);
-    }
-
-    [ExcludeFromCodeCoverage]
-    internal class TestProvider : IConfigurationProvider
-    {
-        public IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string? parentPath) => 
-            throw new NotImplementedException();
-
-        public IChangeToken GetReloadToken() => throw new NotImplementedException();
-        
-        public void Load() => throw new NotImplementedException();
-        
-        public void Set(string key, string? value) => throw new NotImplementedException();
-        
-        public bool TryGet(string key, out string? value) => throw new NotImplementedException();
     }
 }

@@ -6,7 +6,7 @@ namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 public class DependencyInfoTests
 {
     [TestMethod]
-    public void DependencyInfo_Creation_ReturnsExpectedValues()
+    public void DependencyInfo_WithUpdate_ReturnsExpectedValues()
     {
         // arrange
         var di = new DependencyInfo("Test", null, "", null);

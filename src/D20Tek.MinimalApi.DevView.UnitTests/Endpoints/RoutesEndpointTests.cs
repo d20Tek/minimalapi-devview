@@ -29,19 +29,8 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        var endpointDict = jsonResult.Value!.First();
-        var methods = endpointDict["Method"] as string[];
-        CollectionAssert.Contains(methods, "GET");
-        Assert.AreEqual("/hello", endpointDict["Pattern"]);
-        Assert.AreEqual("<CreateRouteEndpoint>b__1_0", endpointDict["Handler"]);
-        var produces = endpointDict["Produces"] as string[];
-        Assert.HasCount(1, produces!);
-        CollectionAssert.Contains(
-            produces,
-            "StatusCode: 200, ContentTypes: application/json, Type: D20Tek.MinimalApi.DevView.UnitTests.Endpoints.RoutesEndpointTests+TestResponse");
+        var endpointDict = result.AssertValid();
+        endpointDict.AssertProducesOnly();
     }
 
     [TestMethod]
@@ -62,26 +51,7 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        var endpointDict = jsonResult.Value!.First();
-        var methods = endpointDict["Method"] as string[];
-        CollectionAssert.Contains(methods, "GET");
-        Assert.AreEqual("/hello", endpointDict["Pattern"]);
-        Assert.AreEqual("<CreateRouteEndpoint>b__1_0", endpointDict["Handler"]);
-        var produces = endpointDict["Produces"] as string[];
-        Assert.HasCount(1, produces!);
-        CollectionAssert.Contains(
-            produces,
-            "StatusCode: 200, ContentTypes: application/json, Type: D20Tek.MinimalApi.DevView.UnitTests.Endpoints.RoutesEndpointTests+TestResponse");
-
-        endpointDict = jsonResult.Value!.Last();
-        methods = endpointDict["Method"] as string[];
-        CollectionAssert.Contains(methods, "DELETE");
-        Assert.AreEqual("/hello/{id}", endpointDict["Pattern"]);
-        Assert.AreEqual("<CreateRouteEndpoint>b__0_0", endpointDict["Handler"]);
-        Assert.IsFalse(endpointDict.ContainsKey("Produces"));
+        result.AssertValidComplex();
     }
 
     [TestMethod]
@@ -101,10 +71,7 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        Assert.AreEqual(0, jsonResult.Value!.Count());
+        result.AssertEmpty();
     }
 
     [TestMethod]
@@ -124,15 +91,8 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        var endpointDict = jsonResult.Value!.First();
-        var methods = endpointDict["Method"] as string[];
-        CollectionAssert.Contains(methods, "GET");
-        Assert.AreEqual("/hello", endpointDict["Pattern"]);
-        var metadataType = endpointDict["MetadataTypes"];
-        Assert.IsNotNull(metadataType);
+        var endpointDict = result.AssertValid();
+        Assert.IsNotNull(endpointDict["MetadataTypes"]);
     }
 
     [TestMethod]
@@ -152,13 +112,7 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        var endpointDict = jsonResult.Value!.First();
-        var methods = endpointDict["Method"] as string[];
-        CollectionAssert.Contains(methods, "GET");
-        Assert.AreEqual("/hello", endpointDict["Pattern"]);
+        var endpointDict = result.AssertValid(expectedHandler: "<CreateRouteEndpoint>b__3_0");
         var tags = endpointDict["Tags"] as string[];
         CollectionAssert.Contains(tags, "tag2");
         var endpointName = endpointDict["Name"] as string;
@@ -182,13 +136,7 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        var endpointDict = jsonResult.Value!.First();
-        var methods = endpointDict["Method"] as string[];
-        CollectionAssert.Contains(methods, "GET");
-        Assert.AreEqual("/hello", endpointDict["Pattern"]);
+        var endpointDict = result.AssertValid(expectedHandler: "<CreateRouteEndpoint>b__3_0");
         var endpointName = endpointDict["Name"] as string;
         Assert.AreEqual("TestHandler", endpointName);
     }
@@ -210,14 +158,8 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        var endpointDict = jsonResult.Value!.First();
-        var produces = endpointDict["Produces"] as string[];
-        Assert.HasCount(1, produces!);
-        CollectionAssert.Contains(
-            produces,
+        var endpointDict = result.AssertValid();
+        endpointDict.AssertProducesOnly(
             "StatusCode: 200, ContentTypes: application/json, Type: Microsoft.AspNetCore.Http.IResult");
     }
 
@@ -239,15 +181,8 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        var endpointDict = jsonResult.Value!.First();
-        var produces = endpointDict["Produces"] as string[];
-        Assert.HasCount(1, produces!);
-        CollectionAssert.Contains(
-            produces,
-            "StatusCode: 200, ContentTypes: application/json, Type: D20Tek.MinimalApi.DevView.UnitTests.Endpoints.RoutesEndpointTests+TestResponse");
+        var endpointDict = result.AssertValid(expectedHandler: "<CreateRouteEndpoint>b__2_0");
+        endpointDict.AssertProducesOnly();
     }
 
     [TestMethod]
@@ -297,13 +232,6 @@ public sealed class RoutesEndpointTests
         var result = RoutesEndpoint.GetRoutes(endpointSource, context, options) as IResult;
 
         // assert
-        Assert.IsNotNull(result);
-        var jsonResult = result as JsonHttpResult<IEnumerable<Dictionary<string, object?>>>;
-        Assert.IsNotNull(jsonResult);
-        Assert.AreEqual(1, jsonResult.Value!.Count());
-        var endpointDict = jsonResult.Value!.First();
-        var methods = endpointDict["Method"] as string[];
-        CollectionAssert.Contains(methods, "GET");
-        Assert.AreEqual("/hello", endpointDict["Pattern"]);
+        result.AssertValid(expectedHandler: "<CreateRouteEndpoint>b__3_0");
     }
 }
