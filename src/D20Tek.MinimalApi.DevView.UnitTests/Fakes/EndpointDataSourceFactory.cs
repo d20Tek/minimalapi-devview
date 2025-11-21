@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Routing.Patterns;
-using System.Diagnostics.CodeAnalysis;
+﻿using Microsoft.AspNetCore.Routing.Patterns;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 

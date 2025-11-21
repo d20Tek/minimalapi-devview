@@ -1,5 +1,4 @@
 ﻿using D20Tek.MinimalApi.DevView.Common;
-using Microsoft.AspNetCore.Builder;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Common;
 

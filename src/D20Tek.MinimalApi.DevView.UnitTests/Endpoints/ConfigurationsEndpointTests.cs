@@ -1,10 +1,5 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints.Configs;
-using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 

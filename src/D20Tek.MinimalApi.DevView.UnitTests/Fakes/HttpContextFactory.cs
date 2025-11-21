@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
 internal static class HttpContextFactory
 {

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 
 internal static class AssertRoutesEndpoint
 {

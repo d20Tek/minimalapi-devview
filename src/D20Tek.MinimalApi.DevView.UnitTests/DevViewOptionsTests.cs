@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests;
 
 [TestClass]
 public class DevViewOptionsTests

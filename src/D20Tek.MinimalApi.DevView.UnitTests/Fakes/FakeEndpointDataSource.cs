@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Primitives;
-using System.Diagnostics.CodeAnalysis;
+﻿using Microsoft.Extensions.FileProviders;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 

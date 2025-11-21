@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests;
 
 [TestClass]
 public class DependencyInjectionTests

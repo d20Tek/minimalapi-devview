@@ -1,10 +1,4 @@
-﻿using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System.Diagnostics.CodeAnalysis;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests;
 
 [TestClass]
 public class RequestLoggingMiddlewareTests

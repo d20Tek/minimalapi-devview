@@ -1,6 +1,4 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints.Info;
-using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 

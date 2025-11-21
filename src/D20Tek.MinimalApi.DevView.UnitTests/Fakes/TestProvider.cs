@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
-using System.Diagnostics.CodeAnalysis;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 
 [ExcludeFromCodeCoverage]
 internal class TestProvider : IConfigurationProvider

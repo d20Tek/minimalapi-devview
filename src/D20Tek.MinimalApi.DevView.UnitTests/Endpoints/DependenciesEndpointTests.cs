@@ -1,12 +1,6 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
-using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Primitives;
 using System.Diagnostics;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;

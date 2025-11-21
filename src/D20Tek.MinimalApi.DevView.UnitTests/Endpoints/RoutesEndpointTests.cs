@@ -1,9 +1,4 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints.Routes;
-using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 

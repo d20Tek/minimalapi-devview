@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Diagnostics.CodeAnalysis;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
 [ExcludeFromCodeCoverage]
 public class FakeLogger<T> : ILogger<T>

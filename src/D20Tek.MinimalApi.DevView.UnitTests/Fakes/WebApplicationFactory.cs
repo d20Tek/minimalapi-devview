@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics.CodeAnalysis;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
 internal static class WebApplicationFactory
 {

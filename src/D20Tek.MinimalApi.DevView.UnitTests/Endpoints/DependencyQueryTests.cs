@@ -1,6 +1,4 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
-using D20Tek.MinimalApi.DevView.UnitTests.Fakes;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace D20Tek.MinimalApi.DevView.UnitTests.Endpoints;
 

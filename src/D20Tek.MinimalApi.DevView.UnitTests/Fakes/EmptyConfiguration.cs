@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
-using System.Diagnostics.CodeAnalysis;
-
-namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
+﻿namespace D20Tek.MinimalApi.DevView.UnitTests.Fakes;
 
 [ExcludeFromCodeCoverage]
 internal class EmptyConfiguration : IConfiguration

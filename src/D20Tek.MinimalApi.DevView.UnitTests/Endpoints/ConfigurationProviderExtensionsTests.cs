@@ -1,5 +1,4 @@
 ﻿using D20Tek.MinimalApi.DevView.Endpoints.Configs;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.CommandLine;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.Configuration.Json;
