@@ -1,6 +1,6 @@
 ﻿namespace D20Tek.MinimalApi.DevView;
 
-public class DevViewOptions
+public sealed class DevViewOptions
 {
     private const string _defaultPath = "/dev";
 

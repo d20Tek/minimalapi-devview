@@ -1,6 +1,6 @@
 ﻿namespace D20Tek.MinimalApi.DevView.Endpoints.Routes;
 
-public class RouteEndpointQuery
+public sealed class RouteEndpointQuery
 {
     private const string _routeKey = "route";
     private const string _methodKey = "method";
@@ -35,20 +35,14 @@ public class RouteEndpointQuery
         endpoints
             .ApplyWhereIf(
                 Route,
-                d => DictionaryItemAsString(d, _patternFilter).Contains(Route!, StringComparison.OrdinalIgnoreCase))
+                d => d.ItemAsString(_patternFilter).Contains(Route!, StringComparison.OrdinalIgnoreCase))
             .ApplyWhereIf(
                 Method,
-                d => DictionaryItemAsStringArray(d, _methodFilter).Contains(Method!.ToUpper()))
+                d => d.ItemAsStringArray(_methodFilter).Contains(Method!.ToUpper()))
             .ApplyWhereIf(
                 EndpointName,
-                d => DictionaryItemAsString(d, _nameFilter).Contains(EndpointName!, StringComparison.OrdinalIgnoreCase))
+                d => d.ItemAsString(_nameFilter).Contains(EndpointName!, StringComparison.OrdinalIgnoreCase))
             .ApplyWhereIf(
                 Tag,
-                d => DictionaryItemAsStringArray(d, _tagsFilter).Contains(Tag));
-
-    private static string DictionaryItemAsString(Dictionary<string, object?> dict, string key) =>
-        dict.TryGetValue(key, out var value) && value is string result ? result : string.Empty;
-
-    private static string[] DictionaryItemAsStringArray(Dictionary<string, object?> dict, string key) =>
-        dict.TryGetValue(key, out var value) && value is string[] result ? result : [];
+                d => d.ItemAsStringArray(_tagsFilter).Contains(Tag));
 }

@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace D20Tek.MinimalApi.DevView;
 
-public class RequestLoggingMiddleware(
+public sealed class RequestLoggingMiddleware(
     RequestDelegate next,
     ILogger<RequestLoggingMiddleware> logger,
     IOptions<DevViewOptions> options)
