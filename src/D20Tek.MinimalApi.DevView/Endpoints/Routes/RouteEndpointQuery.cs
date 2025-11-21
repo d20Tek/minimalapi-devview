@@ -1,7 +1,4 @@
-﻿using D20Tek.MinimalApi.DevView.Common;
-using Microsoft.AspNetCore.Http;
-
-namespace D20Tek.MinimalApi.DevView.Endpoints.Routes;
+﻿namespace D20Tek.MinimalApi.DevView.Endpoints.Routes;
 
 public class RouteEndpointQuery
 {

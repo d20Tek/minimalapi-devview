@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
-
-namespace D20Tek.MinimalApi.DevView.Common;
+﻿namespace D20Tek.MinimalApi.DevView.Common;
 
 internal static class RouteHandlerBuilderExtension
 {

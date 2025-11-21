@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Configs;
 

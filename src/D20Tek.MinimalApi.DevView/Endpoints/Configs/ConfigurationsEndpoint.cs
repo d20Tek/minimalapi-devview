@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using D20Tek.MinimalApi.DevView.Common;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Configs;
 

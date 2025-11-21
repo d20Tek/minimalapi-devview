@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace D20Tek.MinimalApi.DevView;
+﻿namespace D20Tek.MinimalApi.DevView;
 
 public class DevViewOptions
 {

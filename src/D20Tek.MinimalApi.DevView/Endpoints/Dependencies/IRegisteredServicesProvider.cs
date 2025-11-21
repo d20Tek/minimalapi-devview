@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
+﻿namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
 public interface IRegisteredServicesProvider
 {

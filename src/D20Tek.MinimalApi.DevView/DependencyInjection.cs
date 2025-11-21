@@ -2,9 +2,6 @@
 using D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 using D20Tek.MinimalApi.DevView.Endpoints.Info;
 using D20Tek.MinimalApi.DevView.Endpoints.Routes;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.EnvironmentVariables;
+﻿using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace D20Tek.MinimalApi.DevView.Endpoints.Configs;
 

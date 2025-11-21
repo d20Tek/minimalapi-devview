@@ -1,8 +1,4 @@
-﻿using D20Tek.MinimalApi.DevView.Common;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
 using System.Reflection;

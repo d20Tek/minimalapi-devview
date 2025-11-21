@@ -1,8 +1,4 @@
-﻿using D20Tek.MinimalApi.DevView.Common;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
+﻿namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
 public sealed class DependencyQuery
 {

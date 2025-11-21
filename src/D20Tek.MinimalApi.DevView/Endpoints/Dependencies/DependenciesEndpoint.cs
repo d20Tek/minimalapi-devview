@@ -1,10 +1,4 @@
-﻿using D20Tek.MinimalApi.DevView.Common;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
+﻿namespace D20Tek.MinimalApi.DevView.Endpoints.Dependencies;
 
 public static partial class DependenciesEndpoint
 {
