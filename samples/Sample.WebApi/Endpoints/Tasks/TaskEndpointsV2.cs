@@ -13,8 +13,7 @@ public static class TaskEndpointsV2
 
         group.MapGet("/", GetAllTasks)
              .Produces<TaskEntity[]>(StatusCodes.Status200OK)
-             .WithName("GetAllTasks.V2")
-             .WithOpenApi();
+             .WithName("GetAllTasks.V2");
 
         group.MapGet("/{id}", async (int id, ITasksRepository repo) =>
         {
@@ -23,8 +22,7 @@ public static class TaskEndpointsV2
         })
         .Produces<TaskEntity[]>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
-        .WithName("GetTaskById.V2")
-        .WithOpenApi();
+        .WithName("GetTaskById.V2");
 
         group.MapPost("/", async (CreateTaskRequest request, LowDbAsync<TasksDocument> db, ITasksRepository repo) =>
         {
@@ -38,8 +36,7 @@ public static class TaskEndpointsV2
         })
         .Produces<TaskEntity>(StatusCodes.Status201Created)
         .ProducesValidationProblem(StatusCodes.Status400BadRequest)
-        .WithName("CreateTask.V2")
-        .WithOpenApi();
+        .WithName("CreateTask.V2");
 
         group.MapPut("/{id}", async (int id, UpdateTaskRequest request, ITasksRepository repo) =>
         {
@@ -53,8 +50,7 @@ public static class TaskEndpointsV2
         .Produces<TaskEntity>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .ProducesValidationProblem(StatusCodes.Status400BadRequest)
-        .WithName("UpdateTask.V2")
-        .WithOpenApi();
+        .WithName("UpdateTask.V2");
 
         group.MapDelete("/{id}", async (int id, ITasksRepository repo) =>
         {
@@ -67,8 +63,7 @@ public static class TaskEndpointsV2
         .Produces<TaskEntity>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .ProducesValidationProblem(StatusCodes.Status400BadRequest)
-        .WithName("DeleteTask.V2")
-        .WithOpenApi();
+        .WithName("DeleteTask.V2");
     }
 
     private async static Task<IResult> GetAllTasks(ITasksRepository repo)
