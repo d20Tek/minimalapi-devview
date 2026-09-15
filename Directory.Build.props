@@ -1,0 +1,15 @@
+<Project>
+
+  <PropertyGroup>
+	<!-- Shared build settings applied to every project in the solution. -->
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<LangVersion>latest</LangVersion>
+
+	<!-- Treat all warnings as errors globally. -->
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<WarningsAsErrors />
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+</Project>

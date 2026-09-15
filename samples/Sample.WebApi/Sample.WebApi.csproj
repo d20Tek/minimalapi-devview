@@ -2,16 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="D20Tek.Functional.AspNetCore" Version="1.1.5" />
-    <PackageReference Include="LowDb.Net" Version="1.3.5" />
-    <PackageReference Include="LowDb.Net.Repositories" Version="1.3.5" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.16.2" />
+    <PackageReference Include="D20Tek.Functional.AspNetCore" />
+    <PackageReference Include="LowDb.Net" />
+    <PackageReference Include="LowDb.Net.Repositories" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Scalar.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>

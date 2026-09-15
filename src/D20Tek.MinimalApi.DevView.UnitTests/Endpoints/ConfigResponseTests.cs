@@ -96,7 +96,7 @@ public class ConfigResponseTests
 
         // assert
         Assert.AreEqual(summary, result.Summary);
-        Assert.AreEqual(entries, result.ConfigDetails);
+        Assert.AreSame(entries, result.ConfigDetails);
         Assert.HasCount(3, result.ConfigDetails);
     }
 }
