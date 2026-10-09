@@ -27,9 +27,14 @@ public sealed class RequestLoggingMiddleware(
         var start = Stopwatch.GetTimestamp();
         _logger.Log(_options.LogLevel, _logEntry, context.Request.Method, context.Request.Path);
 
-        await _next(context);
-
-        var elapsed = (Stopwatch.GetTimestamp() - start) * _millisec / Stopwatch.Frequency;
-        _logger.Log(_options.LogLevel, _logExit, context.Response.StatusCode, elapsed);
+        try
+        {
+            await _next(context);
+        }
+        finally
+        {
+            var elapsed = (Stopwatch.GetTimestamp() - start) * _millisec / Stopwatch.Frequency;
+            _logger.Log(_options.LogLevel, _logExit, context.Response.StatusCode, elapsed);
+        }
     }
 }

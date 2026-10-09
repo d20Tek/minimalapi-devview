@@ -11,9 +11,17 @@ public static class DependencyInjection
 {
     private const string _devViewSection = "DevView";
 
-    public static IServiceCollection AddDevView(this IServiceCollection services, IConfiguration config) =>
-        services.Configure<DevViewOptions>(config.GetSection(_devViewSection))
-                .AddSingleton<IRegisteredServicesProvider>(sp => new RegisteredServicesProvider(services));
+    public static IServiceCollection AddDevView(this IServiceCollection services, IConfiguration config)
+    {
+        services.AddOptions<DevViewOptions>()
+                .Bind(config.GetSection(_devViewSection))
+                .Validate(
+                    o => !string.IsNullOrWhiteSpace(o.BasePath),
+                    "DevView:BasePath must not be null or empty.")
+                .ValidateOnStart();
+
+        return services.AddSingleton<IRegisteredServicesProvider>(sp => new RegisteredServicesProvider(services));
+    }
 
     public static IApplicationBuilder UseDevView(
         this IApplicationBuilder app,

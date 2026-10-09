@@ -18,8 +18,8 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(6, result.Count());
-        Assert.IsTrue(result.Any(x => x.ServiceType == typeof(ITestType)));
+        Assert.HasCount(7, result);
+        Assert.Contains(x => x.ServiceType == typeof(ITestType), result);
     }
 
     [TestMethod]
@@ -35,7 +35,7 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(0, result.Count());
+        Assert.IsEmpty(result);
     }
 
     [TestMethod]
@@ -52,7 +52,7 @@ public class DependencyQueryTests
         // assert
         Assert.IsNotNull(result);
         Assert.IsGreaterThanOrEqualTo(80, result.Count());
-        Assert.IsTrue(result.Any(x => x.ServiceType == typeof(ITestType)));
+        Assert.Contains(x => x.ServiceType == typeof(ITestType), result);
     }
 
     [TestMethod]
@@ -84,8 +84,8 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(3, result.Count());
-        Assert.IsTrue(result.Any(x => x.ServiceType == typeof(ITestType)));
+        Assert.HasCount(3, result);
+        Assert.Contains(x => x.ServiceType == typeof(ITestType), result);
     }
 
     [TestMethod]
@@ -101,7 +101,7 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(0, result.Count());
+        Assert.IsEmpty(result);
     }
 
     [TestMethod]
@@ -117,8 +117,8 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(2, result.Count());
-        Assert.IsTrue(result.Any(x => x.ServiceType == typeof(ITestType)));
+        Assert.HasCount(2, result);
+        Assert.Contains(x => x.ServiceType == typeof(ITestType), result);
     }
 
     [TestMethod]
@@ -134,6 +134,6 @@ public class DependencyQueryTests
 
         // assert
         Assert.IsNotNull(result);
-        Assert.AreEqual(0, result.Count());
+        Assert.IsEmpty(result);
     }
 }
